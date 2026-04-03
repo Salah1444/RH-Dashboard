@@ -11,7 +11,7 @@ class Enfant extends Model
     protected $primaryKey = 'id_enf';
 
     protected $fillable = [
-        'emp_id', 'gard_id', 'nom_prenom_enf',
+        'code_agent', 'gard_id', 'nom_enf', 'prenom',
         'rang_enf', 'date_naissance_enf',
         'lien_juridique', 'situation_enf',
     ];
@@ -20,7 +20,7 @@ class Enfant extends Model
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 
     public function garde(): BelongsTo

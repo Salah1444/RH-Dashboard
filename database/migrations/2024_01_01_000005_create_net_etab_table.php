@@ -9,8 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('net_etab', function (Blueprint $table) {
-            $table->id('net_etab_id');
-            $table->string('CD_NETAB', 30)->nullable()->unique();
+            $table->id('CD_NETAB');
             $table->string('LIBELLE_net_etab', 150)->nullable();
             $table->timestamps();
         });

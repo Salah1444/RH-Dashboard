@@ -8,18 +8,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Position extends Model
 {
     protected $table      = 'position';
-    protected $primaryKey = 'id_position';
+        protected $primaryKey = 'COD_POS';
 
     protected $fillable = [
-        'COD_POS', 'LIB_POSITION_FR', 'LIB_POSITION_AR',
+        'LIB_POSITION_FR', 'LIB_POSITION_AR',
         'LIB_TYPE_POSITION_FR', 'LIB_TYPE_POSITION_AR',
-        'DATE_POSITION', 'type_position',
+        'DATE_POSITION',
     ];
 
     protected $casts = ['DATE_POSITION' => 'date'];
 
     public function employers(): HasMany
     {
-        return $this->hasMany(Employer::class, 'position_id', 'id_position');
+        return $this->hasMany(Employer::class, 'position_id', 'COD_POS');
     }
 }

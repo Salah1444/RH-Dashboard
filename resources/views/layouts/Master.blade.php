@@ -88,10 +88,14 @@ href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">
                     Annuler
                 </button>
-
-                <a class="btn btn-primary" href="login.html">
-                    Se déconnecter
-                </a>
+                <form  method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Se déconnecter') }}
+                            </x-dropdown-link>
+                </form>
             </div>
 
         </div>

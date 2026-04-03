@@ -11,7 +11,7 @@ class Affectation extends Model
     protected $primaryKey = 'id_aff';
 
     protected $fillable = [
-        'emp_id', 'etablissement_id', 'fonction_id',
+        'code_agent', 'code_etab', 'fonction_id',
         'DT_AFF_POSTE', 'DATE_DEBUT_AFF',
         'Date_aff_delegation', 'Date_aff_aref',
         'Mode_Affectation',
@@ -26,16 +26,16 @@ class Affectation extends Model
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 
     public function etablissement(): BelongsTo
     {
-        return $this->belongsTo(Etablisement::class, 'etablissement_id', 'id_etablisement');
+        return $this->belongsTo(Etablisement::class, 'code_etab', 'CD_ETAB');
     }
 
     public function fonction(): BelongsTo
     {
-        return $this->belongsTo(Fonction::class, 'fonction_id', 'id_fon');
+        return $this->belongsTo(Fonction::class, 'fonction_id', 'CODE_FONCTION');
     }
 }

@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Region extends Model
 {
     protected $table      = 'region';
-    protected $primaryKey = 'id_region';
+        protected $primaryKey = 'CD_REG';
 
-    protected $fillable = ['CD_REG', 'LIB_REGION_FR', 'LIB_REGION_AR'];
+    protected $fillable = ['LIB_REGION_FR', 'LIB_REGION_AR'];
 
     public function provinces(): HasMany
     {
-        return $this->hasMany(Province::class, 'id_region', 'id_region');
+        return $this->hasMany(Province::class, 'CD_REG', 'CD_REG');
     }
 
     public function modiriyas(): HasMany
     {
-        return $this->hasMany(Modiriya::class, 'id_region', 'id_region');
+        return $this->hasMany(Modiriya::class, 'id_region', 'CD_REG');
     }
 }

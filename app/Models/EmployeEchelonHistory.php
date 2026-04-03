@@ -9,13 +9,13 @@ class EmployeEchelonHistory extends Model
 {
     protected $table = 'employe_echelon_history';
 
-    protected $fillable = ['emp_id', 'id_ech', 'INDICE', 'ANC_ELO', 'DAT_EFF_ELO'];
+    protected $fillable = ['code_agent', 'id_ech', 'INDICE', 'DAT_EFF_ELO'];
 
     protected $casts = ['DAT_EFF_ELO' => 'date'];
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 
     public function echelon(): BelongsTo

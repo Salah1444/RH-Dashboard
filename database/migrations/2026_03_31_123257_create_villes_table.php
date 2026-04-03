@@ -6,18 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('region', function (Blueprint $table) {
-            $table->id('CD_REG');
-            $table->string('LIB_REGION_FR', 100)->nullable();
-            $table->string('LIB_REGION_AR', 100)->nullable();
+        Schema::create('villes', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('region');
+        Schema::dropIfExists('villes');
     }
 };

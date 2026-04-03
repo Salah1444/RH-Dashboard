@@ -11,7 +11,7 @@ class Conjoint extends Model
     protected $primaryKey = 'id_conj';
 
     protected $fillable = [
-        'emp_id', 'DATE_SIT_FAM', 'nom_prenom_conjoint',
+        'code_agent', 'DATE_SIT_FAM', 'nom_prenom_conjoint',
         'rang_conj', 'cin_conj', 'doti_conj',
         'nationalite_conj', 'fonction_conj',
     ];
@@ -20,6 +20,6 @@ class Conjoint extends Model
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 }

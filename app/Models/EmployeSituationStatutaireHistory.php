@@ -10,7 +10,7 @@ class EmployeSituationStatutaireHistory extends Model
     protected $table = 'employe_situation_statutaire_history';
 
     protected $fillable = [
-        'emp_id', 'isit_st_id',
+        'code_agent', 'sit_st_id',
         'DATE_SIT_STAT', 'DATE_PREV_RETRAITE',
     ];
 
@@ -21,11 +21,11 @@ class EmployeSituationStatutaireHistory extends Model
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 
     public function situationStatutaire(): BelongsTo
     {
-        return $this->belongsTo(SituationStatutaire::class, 'isit_st_id', 'isit_st_id');
+        return $this->belongsTo(SituationStatutaire::class, 'sit_st_id', 'sit_st_id');
     }
 }

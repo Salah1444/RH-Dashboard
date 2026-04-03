@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class SituationStatutaire extends Model
 {
     protected $table      = 'situation_statutaire';
-    protected $primaryKey = 'isit_st_id';
+        protected $primaryKey = 'sit_st_id';
 
     protected $fillable = [
         'CODE_SIT_STATUTAIRE',
@@ -18,6 +18,6 @@ class SituationStatutaire extends Model
 
     public function history(): HasMany
     {
-        return $this->hasMany(EmployeSituationStatutaireHistory::class, 'isit_st_id', 'isit_st_id');
+        return $this->hasMany(EmployeSituationStatutaireHistory::class, 'sit_st_id', 'sit_st_id');
     }
 }

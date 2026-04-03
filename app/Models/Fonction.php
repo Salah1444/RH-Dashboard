@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Fonction extends Model
 {
     protected $table      = 'fonction';
-    protected $primaryKey = 'id_fon';
+        protected $primaryKey = 'CODE_FONCTION';
 
     protected $fillable = [
-        'CODE_FONCTION', 'LIB_FONCTION_FR', 'LIB_FONCTION_AR',
+        'LIB_FONCTION_FR', 'LIB_FONCTION_AR',
         'DT_AFF_Fonction', 'LL_CYCLE', 'LL_DISCIP',
     ];
 
@@ -19,6 +19,6 @@ class Fonction extends Model
 
     public function affectations(): HasMany
     {
-        return $this->hasMany(Affectation::class, 'fonction_id', 'id_fon');
+        return $this->hasMany(Affectation::class, 'fonction_id', 'CODE_FONCTION');
     }
 }

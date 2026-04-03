@@ -9,16 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('etablisement', function (Blueprint $table) {
-            $table->id('id_etablisement');
-            $table->string('CD_ETAB', 30)->nullable()->unique();
-            $table->string('LIBELLE_FR_AFF', 200)->nullable();
-            $table->string('LIBELLE_AR_AFF', 200)->nullable();
+            $table->id('CD_ETAB');
+            $table->string('NOM_ETAB', 200)->nullable();
             $table->string('type_milieu', 50)->nullable();
             $table->integer('Nombre_eleves')->nullable();
             $table->string('Disponibilite_logement', 50)->nullable();
-            $table->foreignId('commune_id')->nullable()->constrained('commune', 'id_commune')->nullOnDelete();
+            $table->foreignId('cd_commune')->nullable()->constrained('commune', 'CD_COM')->nullOnDelete();
             $table->foreignId('modiriya_id')->nullable()->constrained('modiriya', 'modiriya_id')->nullOnDelete();
-            $table->foreignId('net_etab_id')->nullable()->constrained('net_etab', 'net_etab_id')->nullOnDelete();
+            $table->foreignId('CD_NETAB')->nullable()->constrained('net_etab', 'CD_NETAB')->nullOnDelete();
             $table->timestamps();
         });
     }

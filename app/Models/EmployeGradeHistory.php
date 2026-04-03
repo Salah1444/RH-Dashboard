@@ -10,7 +10,7 @@ class EmployeGradeHistory extends Model
     protected $table = 'employe_grades_history';
 
     protected $fillable = [
-        'emp_id', 'id_grade', 'ANC_GRADE',
+        'code_agent', 'id_grade', 'ANC_GRADE',
         'DAT_EFF_GR', 'MOD_AV_GRADE', 'LIBELLE_GRADE',
     ];
 
@@ -18,7 +18,7 @@ class EmployeGradeHistory extends Model
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 
     public function grade(): BelongsTo

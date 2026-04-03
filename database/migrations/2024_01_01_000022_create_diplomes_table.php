@@ -10,17 +10,15 @@ return new class extends Migration
     {
         Schema::create('diplomes', function (Blueprint $table) {
             $table->id('id_diplome');
-            $table->foreignId('emp_id')->constrained('employer', 'id_emp')->cascadeOnDelete();
             $table->string('CD_DIPP', 20)->nullable();
-            $table->string('LL_DIPP', 200)->nullable();
-            $table->string('CD_DIPS', 20)->nullable();
-            $table->string('LL_DIPS', 200)->nullable();
-            $table->date('DT_DIPPROF')->nullable();
-            $table->date('DT_DIPSCOL')->nullable();
+            $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
+            $table->string('LL_DIP', 200)->nullable();
+            $table->date('DT_DIP')->nullable();
             $table->string('etablissement_formation', 200)->nullable();
-            $table->string('specialite_montion', 200)->nullable();
+            $table->float('montion')->nullable();
             $table->string('type_dip', 100)->nullable();
             $table->date('date_obtenue')->nullable();
+            $table->string('PDF', 200)->nullable();
             $table->timestamps();
         });
     }

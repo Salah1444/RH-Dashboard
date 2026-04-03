@@ -11,8 +11,8 @@ class Absence extends Model
     protected $primaryKey = 'id_abs';
 
     protected $fillable = [
-        'emp_id', 'congee_id',
-        'date_debut', 'date_fin', 'motif', 'certificat',
+        'code_agent', 'congee_id',
+        'date_debut', 'date_fin', 'is_justify', 'certificat',
     ];
 
     protected $casts = [
@@ -22,7 +22,7 @@ class Absence extends Model
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 
     public function congee(): BelongsTo

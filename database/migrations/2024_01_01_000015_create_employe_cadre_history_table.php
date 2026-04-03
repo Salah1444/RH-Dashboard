@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::create('employe_cadre_history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('emp_id')->constrained('employer', 'id_emp')->cascadeOnDelete();
+            $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
             $table->foreignId('id_cadre')->constrained('cadre', 'id_cadre')->cascadeOnDelete();
             $table->string('ANC_ADM', 20)->nullable();
-            $table->date('DT_AFF_Cadr')->nullable();
+            $table->date('DT_AFF_Cadre')->nullable();
             $table->timestamps();
         });
     }

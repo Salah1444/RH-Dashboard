@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('employe_grades_history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('emp_id')->constrained('employer', 'id_emp')->cascadeOnDelete();
+            $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
             $table->foreignId('id_grade')->constrained('grade', 'id_grade')->cascadeOnDelete();
             $table->string('ANC_GRADE', 20)->nullable();
             $table->date('DAT_EFF_GR')->nullable();

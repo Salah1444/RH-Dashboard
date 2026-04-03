@@ -9,8 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fonction', function (Blueprint $table) {
-            $table->id('id_fon');
-            $table->string('CODE_FONCTION', 30)->nullable()->unique();
+            $table->id('CODE_FONCTION');
             $table->string('LIB_FONCTION_FR', 200)->nullable();
             $table->string('LIB_FONCTION_AR', 200)->nullable();
             $table->date('DT_AFF_Fonction')->nullable();

@@ -9,17 +9,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Province extends Model
 {
     protected $table      = 'province';
-    protected $primaryKey = 'id_province';
+        protected $primaryKey = 'CD_PRV';
 
-    protected $fillable = ['CD_PRV', 'LIB_PROVINCE_FR', 'LIB_PROVINCE_AR', 'id_region'];
+    protected $fillable = ['LIB_PROVINCE_FR', 'LIB_PROVINCE_AR', 'CD_REG'];
 
     public function region(): BelongsTo
     {
-        return $this->belongsTo(Region::class, 'id_region', 'id_region');
+        return $this->belongsTo(Region::class, 'CD_REG', 'CD_REG');
     }
 
     public function communes(): HasMany
     {
-        return $this->hasMany(Commune::class, 'id_province', 'id_province');
+        return $this->hasMany(Commune::class, 'CD_PRV', 'CD_PRV');
     }
 }

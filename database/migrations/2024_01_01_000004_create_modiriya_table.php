@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('modiriya', function (Blueprint $table) {
             $table->id('modiriya_id');
             $table->string('nom_modiriya', 150)->nullable();
-            $table->foreignId('id_region')->nullable()->constrained('region', 'id_region')->nullOnDelete();
+            $table->foreignId('id_region')->nullable()->constrained('region', 'CD_REG')->nullOnDelete();
             $table->timestamps();
         });
     }

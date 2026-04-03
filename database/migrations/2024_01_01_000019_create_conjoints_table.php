@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('conjoints', function (Blueprint $table) {
             $table->id('id_conj');
-            $table->foreignId('emp_id')->constrained('employer', 'id_emp')->cascadeOnDelete();
+            $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
             $table->date('DATE_SIT_FAM')->nullable();
             $table->string('nom_prenom_conjoint', 200)->nullable();
             $table->integer('rang_conj')->nullable();

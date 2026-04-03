@@ -10,11 +10,11 @@ return new class extends Migration
     {
         Schema::create('absence', function (Blueprint $table) {
             $table->id('id_abs');
-            $table->foreignId('emp_id')->constrained('employer', 'id_emp')->cascadeOnDelete();
+            $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
             $table->foreignId('congee_id')->nullable()->constrained('congee', 'id_congee')->nullOnDelete();
             $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
-            $table->string('motif', 255)->nullable();
+            $table->boolean('is_justify');
             $table->string('certificat', 255)->nullable();
             $table->timestamps();
         });

@@ -88,7 +88,7 @@
 
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th>CODE</th>
                                 <th>Employé</th>
                                 <th>CIN</th>
                                 <th>Genre</th>
@@ -104,7 +104,7 @@
 
                         <tfoot>
                             <tr>
-                                <th>#</th>
+                                <th>CODE</th>
                                 <th>Employé</th>
                                 <th>CIN</th>
                                 <th>Genre</th>
@@ -129,7 +129,7 @@
                                     $grade = $emp->gradeActuel?->grade?->Lib_grade_FR;
                                     $sitStat = $emp->situationStatutaireActuelle?->situationStatutaire?->LIB_SITUATION_STATUTAIRE_FR;
                                     $region = $aff?->etablissement?->commune?->province?->region?->LIB_REGION_FR;
-                                    $etab = $aff?->etablissement?->LIBELLE_FR_AFF;
+                                    $etab = $aff?->etablissement?->NOM_ETAB;
                                 @endphp
 
                                 <tr>
@@ -174,13 +174,13 @@
 
                                     <td>
                                         @if($cadre)
-                                            <span class="badge bg-primary">{{ $cadre }}</span>
+                                            <span >{{ $cadre }}</span>
                                         @endif
                                     </td>
 
                                     <td>
                                         @if($grade)
-                                            <span class="badge bg-info">{{ $grade }}</span>
+                                            <span >{{ $grade }}</span>
                                         @endif
                                     </td>
 
@@ -195,7 +195,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('employers.show', $emp->id_emp) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('employers.show', $emp->COD_AG) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </td>

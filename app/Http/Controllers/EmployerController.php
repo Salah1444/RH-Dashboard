@@ -6,6 +6,8 @@ use App\Models\Cadre;
 use App\Models\Employer;
 use App\Models\Affectation;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;   
 
 class EmployerController extends Controller
 {
@@ -20,9 +22,7 @@ class EmployerController extends Controller
             ->unique()
             ->sort()
             ->values();
-
         $cadres = Cadre::orderBy('Lib_Cadre_FR')->pluck('Lib_Cadre_FR');
-
         $situationsFamiliales = Employer::whereNotNull('Sit_Familiale')
             ->distinct()
             ->orderBy('Sit_Familiale')
@@ -37,15 +37,9 @@ class EmployerController extends Controller
                 'gradeActuel.grade',
                 'situationStatutaireActuelle.situationStatutaire',
             ])
-            ->search($request->input('search'))
-            ->filterSexe($request->input('sexe'))
-            ->filterSitFamiliale($request->input('sit_familiale'))
-            ->filterRegion($request->input('region'))
-            ->filterCadre($request->input('cadre'))
             ->orderBy('NOM_PRENOM_FR')
             ->paginate(15)
             ->withQueryString();
-
         // ── Stats rapides ──────────────────────────────────────────
         $stats = [
             'total'     => Employer::count(),
@@ -58,7 +52,69 @@ class EmployerController extends Controller
             'Employer', 'regions', 'cadres', 'situationsFamiliales', 'stats'
         ));
     }
+ public function exportCV($id)
+{
+    $Employer = Employer::with([
+        'position',
+        'affectationActuelle.etablissement',
+        'affectationActuelle.fonction',
+        'cadreActuel.cadre',
+        'gradeActuel.grade',
+        'echelonActuel.echelon',
+        'diplomes',
+        'cadreHistory.cadre',
+        'gradeHistory.grade',
+        'echelonHistory.echelon',
+        'affectations.etablissement',
+        'affectations.fonction',
+    ])->findOrFail($id);
 
+    $photoBase64 = null;
+
+    if ($Employer->photo) {
+
+        // Essayer plusieurs chemins possibles
+        $possiblePaths = [
+            storage_path('app/public/' . ltrim($Employer->photo, '/')),
+            public_path('storage/' . ltrim($Employer->photo, '/')),
+            public_path(ltrim($Employer->photo, '/')),
+        ];
+
+        foreach ($possiblePaths as $path) {
+            if (file_exists($path)) {
+                $photoData = base64_encode(file_get_contents($path));
+                $photoMime = mime_content_type($path);
+                $photoBase64 = "data:{$photoMime};base64,{$photoData}";
+                break;
+            }
+        }
+    }
+
+    // Photo par défaut si aucune trouvée
+    if (!$photoBase64) {
+        $defaultPath = public_path('images/cv/avatar-default.jpg'); // PNG fonctionne mieux que SVG dans DomPDF
+        if (file_exists($defaultPath)) {
+            $photoData   = base64_encode(file_get_contents($defaultPath));
+            $photoBase64 = "data:image/jpg;base64,{$photoData}";
+        }
+    }
+
+    $pdf = Pdf::loadView('employers.cv_pdf', [
+        'Employer'    => $Employer,
+        'photoBase64' => $photoBase64,
+    ])
+    ->setPaper('a4', 'portrait')
+    ->setOptions([
+        'defaultFont'          => 'DejaVu Sans',
+        'isHtml5ParserEnabled' => true,
+        'isRemoteEnabled'      => false,
+        'chroot'               => storage_path('app/public'), // ← permet l'accès aux fichiers locaux
+    ]);
+
+    $fileName = 'CV_' . Str::slug($Employer->NOM_PRENOM_FR ?? 'employe') . '_' . now()->format('Ymd') . '.pdf';
+
+    return $pdf->download($fileName);
+}
     public function show(int $id)
     {
         $Employer = Employer::with([

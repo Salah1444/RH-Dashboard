@@ -15,7 +15,7 @@ class Modiriya extends Model
 
     public function region(): BelongsTo
     {
-        return $this->belongsTo(Region::class, 'id_region', 'id_region');
+        return $this->belongsTo(Region::class, 'id_region', 'CD_REG');
     }
 
     public function etablissements(): HasMany

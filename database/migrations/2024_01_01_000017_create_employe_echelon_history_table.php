@@ -10,10 +10,9 @@ return new class extends Migration
     {
         Schema::create('employe_echelon_history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('emp_id')->constrained('employer', 'id_emp')->cascadeOnDelete();
+            $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
             $table->foreignId('id_ech')->constrained('echelon', 'id_ech')->cascadeOnDelete();
             $table->string('INDICE', 20)->nullable();
-            $table->string('ANC_ELO', 20)->nullable();
             $table->date('DAT_EFF_ELO')->nullable();
             $table->timestamps();
         });

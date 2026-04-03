@@ -9,17 +9,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Etablisement extends Model
 {
     protected $table      = 'etablisement';
-    protected $primaryKey = 'id_etablisement';
+        protected $primaryKey = 'CD_ETAB';
 
     protected $fillable = [
-        'CD_ETAB', 'LIBELLE_FR_AFF', 'LIBELLE_AR_AFF', 'type_milieu',
+        'NOM_ETAB', 'type_milieu',
         'Nombre_eleves', 'Disponibilite_logement',
-        'commune_id', 'modiriya_id', 'net_etab_id',
+        'cd_commune', 'modiriya_id', 'CD_NETAB',
     ];
 
     public function commune(): BelongsTo
     {
-        return $this->belongsTo(Commune::class, 'commune_id', 'id_commune');
+        return $this->belongsTo(Commune::class, 'cd_commune', 'CD_COM');
     }
 
     public function modiriya(): BelongsTo
@@ -29,11 +29,11 @@ class Etablisement extends Model
 
     public function netEtab(): BelongsTo
     {
-        return $this->belongsTo(NetEtab::class, 'net_etab_id', 'net_etab_id');
+        return $this->belongsTo(NetEtab::class, 'CD_NETAB', 'CD_NETAB');
     }
 
     public function affectations(): HasMany
     {
-        return $this->hasMany(Affectation::class, 'etablissement_id', 'id_etablisement');
+        return $this->hasMany(Affectation::class, 'code_etab', 'CD_ETAB');
     }
 }

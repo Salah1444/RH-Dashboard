@@ -11,116 +11,113 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Employer extends Model
 {
 
-    protected $table      = 'Employer';
-    protected $primaryKey = 'id_emp';
+    protected $table      = 'employer';
+    protected $primaryKey = 'COD_AG';
 
     protected $fillable = [
-        'COD_AG', 'CIN_A', 'CIN_N', 'CIN',
+        'CIN_A', 'CIN_N', 'CIN',
         'NOM_PRENOM_FR', 'NOM_PRENOM_AR',
-        'photo', 'DATE_NAISS', 'LIEU_NAIS', 'SEXE', 'CODE_NAT',
-        'ADRESSE_FR', 'ADRESSE_AR', 'VILLE',
+        'photo', 'DATE_NAISS', 'LIEU_NAISS', 'SEXE', 'CODE_NAT',
+        'ADRESSE_FR', 'ADRESSE_AR',
         'TEL_FIXE', 'TEL_PORTABLE', 'ADRESSE_ELEC',
-        'SIT_F_AG', 'Sit_Familiale', 'RIB', 'NUM_PB',
-        'CD_DIPP', 'LL_DIPP', 'CD_DIPS', 'LL_DIPS', 'DT_DIPPROF', 'DT_DIPSCOL',
+        'Sit_Familiale', 'RIB', 'NUM_PB',
         'ville_id', 'position_id',
     ];
 
     protected $casts = [
         'DATE_NAISS' => 'date',
-        'DT_DIPPROF' => 'date',
-        'DT_DIPSCOL' => 'date',
     ];
 
     // ── Relations ──────────────────────────────────────────────────
 
     public function commune(): BelongsTo
     {
-        return $this->belongsTo(Commune::class, 'ville_id', 'id_commune');
+        return $this->belongsTo(Commune::class, 'ville_id', 'CD_COM');
     }
 
     public function position(): BelongsTo
     {
-        return $this->belongsTo(Position::class, 'position_id', 'id_position');
+        return $this->belongsTo(Position::class, 'position_id', 'COD_POS');
     }
 
     public function affectations(): HasMany
     {
-        return $this->hasMany(Affectation::class, 'emp_id', 'id_emp');
+        return $this->hasMany(Affectation::class, 'code_agent', 'COD_AG');
     }
 
     public function affectationActuelle(): HasOne
     {
-        return $this->hasOne(Affectation::class, 'emp_id', 'id_emp')
+        return $this->hasOne(Affectation::class, 'code_agent', 'COD_AG')
                     ->latestOfMany('DATE_DEBUT_AFF')
                     ->with(['etablissement.commune.province.region', 'fonction']);
     }
 
     public function cadreHistory(): HasMany
     {
-        return $this->hasMany(EmployeCadreHistory::class, 'emp_id', 'id_emp');
+        return $this->hasMany(EmployeCadreHistory::class, 'code_agent', 'COD_AG');
     }
 
     public function cadreActuel(): HasOne
     {
-        return $this->hasOne(EmployeCadreHistory::class, 'emp_id', 'id_emp')
-                    ->latestOfMany('DT_AFF_Cadr')
+        return $this->hasOne(EmployeCadreHistory::class, 'code_agent', 'COD_AG')
+                    ->latestOfMany('DT_AFF_Cadre')
                     ->with('cadre');
     }
 
     public function gradeHistory(): HasMany
     {
-        return $this->hasMany(EmployeGradeHistory::class, 'emp_id', 'id_emp');
+        return $this->hasMany(EmployeGradeHistory::class, 'code_agent', 'COD_AG');
     }
 
     public function gradeActuel(): HasOne
     {
-        return $this->hasOne(EmployeGradeHistory::class, 'emp_id', 'id_emp')
+        return $this->hasOne(EmployeGradeHistory::class, 'code_agent', 'COD_AG')
                     ->latestOfMany('DAT_EFF_GR')
                     ->with('grade');
     }
 
     public function echelonHistory(): HasMany
     {
-        return $this->hasMany(EmployeEchelonHistory::class, 'emp_id', 'id_emp');
+        return $this->hasMany(EmployeEchelonHistory::class, 'code_agent', 'COD_AG');
     }
 
     public function echelonActuel(): HasOne
     {
-        return $this->hasOne(EmployeEchelonHistory::class, 'emp_id', 'id_emp')
+        return $this->hasOne(EmployeEchelonHistory::class, 'code_agent', 'COD_AG')
                     ->latestOfMany('DAT_EFF_ELO')
                     ->with('echelon');
     }
 
     public function situationStatutaireHistory(): HasMany
     {
-        return $this->hasMany(EmployeSituationStatutaireHistory::class, 'emp_id', 'id_emp');
+        return $this->hasMany(EmployeSituationStatutaireHistory::class, 'code_agent', 'COD_AG');
     }
 
     public function situationStatutaireActuelle(): HasOne
     {
-        return $this->hasOne(EmployeSituationStatutaireHistory::class, 'emp_id', 'id_emp')
+        return $this->hasOne(EmployeSituationStatutaireHistory::class, 'code_agent', 'COD_AG')
                     ->latestOfMany('DATE_SIT_STAT')
                     ->with('situationStatutaire');
     }
 
     public function conjoints(): HasMany
     {
-        return $this->hasMany(Conjoint::class, 'emp_id', 'id_emp');
+        return $this->hasMany(Conjoint::class, 'code_agent', 'COD_AG');
     }
 
     public function enfants(): HasMany
     {
-        return $this->hasMany(Enfant::class, 'emp_id', 'id_emp')->with('garde');
+        return $this->hasMany(Enfant::class, 'code_agent', 'COD_AG')->with('garde');
     }
 
     public function diplomes(): HasMany
     {
-        return $this->hasMany(Diplome::class, 'emp_id', 'id_emp');
+        return $this->hasMany(Diplome::class, 'code_agent', 'COD_AG');
     }
 
     public function absences(): HasMany
     {
-        return $this->hasMany(Absence::class, 'emp_id', 'id_emp')->with('congee');
+        return $this->hasMany(Absence::class, 'code_agent', 'COD_AG')->with('congee');
     }
 
     // ── Accessors ──────────────────────────────────────────────────
@@ -139,7 +136,7 @@ class Employer extends Model
             $q->where('NOM_PRENOM_FR', 'like', "%{$term}%")
               ->orWhere('NOM_PRENOM_AR',  'like', "%{$term}%")
               ->orWhere('CIN',            'like', "%{$term}%")
-              ->orWhere('COD_AG',         'like', "%{$term}%");
+              ->orWhere('like', "%{$term}%");
         });
     }
 

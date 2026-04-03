@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class NetEtab extends Model
 {
     protected $table      = 'net_etab';
-    protected $primaryKey = 'net_etab_id';
+        protected $primaryKey = 'CD_NETAB';
 
-    protected $fillable = ['CD_NETAB', 'LIBELLE_net_etab'];
+    protected $fillable = ['LIBELLE_net_etab'];
 
     public function etablissements(): HasMany
     {
-        return $this->hasMany(Etablisement::class, 'net_etab_id', 'net_etab_id');
+        return $this->hasMany(Etablisement::class, 'CD_NETAB', 'CD_NETAB');
     }
 }

@@ -11,19 +11,18 @@ class Diplome extends Model
     protected $primaryKey = 'id_diplome';
 
     protected $fillable = [
-        'emp_id', 'CD_DIPP', 'LL_DIPP', 'CD_DIPS', 'LL_DIPS',
-        'DT_DIPPROF', 'DT_DIPSCOL', 'etablissement_formation',
-        'specialite_montion', 'type_dip', 'date_obtenue',
+        'code_agent', 'CD_DIPP', 'LL_DIP',
+        'DT_DIP', 'etablissement_formation',
+        'montion', 'type_dip', 'date_obtenue', 'PDF',
     ];
 
     protected $casts = [
-        'DT_DIPPROF'   => 'date',
-        'DT_DIPSCOL'   => 'date',
+        'DT_DIP'       => 'date',
         'date_obtenue' => 'date',
     ];
 
     public function employer(): BelongsTo
     {
-        return $this->belongsTo(Employer::class, 'emp_id', 'id_emp');
+        return $this->belongsTo(Employer::class, 'code_agent', 'COD_AG');
     }
 }
