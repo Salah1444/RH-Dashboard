@@ -2,8 +2,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon ">
+                    <img width="50" height="50" class="bg-white img-logo p-2" src="{{ asset('images/rh-logo.png') }}" alt="">
                 </div>
                 <div class="sidebar-brand-text mx-3">Dashboard <sup>RH</sup></div>
             </a>

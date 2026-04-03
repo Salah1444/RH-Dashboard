@@ -68,7 +68,6 @@ class EmployerController extends Controller
         'affectations.etablissement',
         'affectations.fonction',
     ])->findOrFail($id);
-
     $photoBase64 = null;
 
     if ($Employer->photo) {

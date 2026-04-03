@@ -5,65 +5,125 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>CV {{ $Employer->NOM_PRENOM_FR }}</title>
     <style>
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 11px;
-            color: #333;
+            color: #1a1a2e;
             line-height: 1.5;
         }
 
+        /* ══ COULEURS DU LOGO ══
+           Bleu foncé  : #1a237e
+           Bleu ciel   : #0288d1
+           Vert        : #2e7d32
+           Rouge       : #c62828
+           Dégradé bg  : #0d47a1 → #1565c0
+        */
+
         /* ── En-tête ── */
         .header {
-            background: blue;
+            background: #0d47a1;
             color: white;
-            padding: 20px;
+            padding: 0;
             margin-bottom: 16px;
+            border-bottom: 4px solid #c62828;
         }
+        .header-inner {
+            padding: 20px;
+        }
+        .header-accent {
+            height: 6px;
+            background: #0288d1;
+        }
+
         .header-table { width: 100%; }
-        .header-photo { width: 100px; vertical-align: top; }
+        .header-photo { width: 110px; vertical-align: middle; }
         .header-photo img {
-            width: 90px;
-            height: 110px;
+            width: 95px;
+            height: 115px;
             object-fit: cover;
-            border: 3px solid white;
+            border: 3px solid #0288d1;
             border-radius: 4px;
         }
-        .header-info { vertical-align: top; padding-left: 16px; }
-        .header-info h1 { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
-        .header-info p  { font-size: 11px; color: #ccc; margin-bottom: 2px; }
+        .header-photo .photo-placeholder {
+            width: 95px;
+            height: 115px;
+            border: 3px solid #0288d1;
+            border-radius: 4px;
+            background: #1565c0;
+        }
+        .header-info { vertical-align: middle; padding-left: 18px; }
+        .header-info h1 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+        .header-info .fonction {
+            font-size: 12px;
+            color: #90caf9;
+            font-weight: bold;
+            margin-bottom: 6px;
+            border-left: 3px solid #c62828;
+            padding-left: 8px;
+        }
+        .header-info .contact {
+            font-size: 10px;
+            color: #bbdefb;
+            margin-bottom: 2px;
+        }
+        .header-right {
+            vertical-align: middle;
+            text-align: right;
+            width: 80px;
+        }
+        .header-right img {
+            width: 70px;
+            opacity: 0.85;
+        }
 
         /* ── Sections ── */
         .section { margin-bottom: 14px; }
+
         .section-title {
-            background: blue;
-            color: white;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            padding: 5px 10px;
+            padding: 5px 12px;
             margin-bottom: 8px;
             border-radius: 2px;
+            color: white;
+            border-left: 5px solid rgba(255,255,255,0.4);
         }
-        .section-title.dark    { background: #2c3e50; }
-        .section-title.success { background: #27ae60; }
-        .section-title.info    { background: #16a085; }
-        .section-title.grey    { background: #7f8c8d; }
+
+        /* Variantes couleurs logo */
+        .title-blue-dark { background: #1a237e; }
+        .title-blue      { background: #0288d1; }
+        .title-green     { background: #2e7d32; }
+        .title-grey      { background: #546e7a; }
+        .title-dark      { background: #1a237e; border-left-color: #0288d1; }
 
         /* ── Grille infos ── */
-        .info-grid { width: 100%; }
+        .info-grid { width: 100%; border-collapse: collapse; }
         .info-grid td {
             width: 50%;
-            padding: 4px 8px;
+            padding: 5px 10px;
             vertical-align: top;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #e3f2fd;
         }
+        .info-grid tr:nth-child(even) td { background: #f5f9ff; }
         .info-grid .label {
             font-size: 9px;
-            color: #888;
+            color: #0288d1;
+            font-weight: bold;
             display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
-        .info-grid strong { font-size: 11px; }
+        .info-grid strong { font-size: 11px; color: #1a237e; }
 
         /* ── Tableaux ── */
         .data-table {
@@ -72,36 +132,48 @@
             font-size: 10px;
         }
         .data-table th {
-            background: #ecf0f1;
+            background: #1a237e;
+            color: white;
             padding: 5px 8px;
             text-align: left;
-            border: 1px solid #ddd;
+            border: 1px solid #0d47a1;
             font-weight: bold;
         }
         .data-table td {
             padding: 4px 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #e0e0e0;
             vertical-align: top;
+            color: #333;
         }
-        .data-table tr:nth-child(even) td { background: #f9f9f9; }
+        .data-table tr:nth-child(even) td { background: #e8f4fd; }
+        .data-table tr:nth-child(odd)  td { background: #ffffff; }
+
         .empty-msg {
             text-align: center;
-            color: #aaa;
+            color: #90a4ae;
             font-style: italic;
             padding: 8px;
         }
 
-        /* ── Statut (2 colonnes côte à côte) ── */
-        .two-col-table { width: 100%; }
-        .two-col-table td { width: 50%; vertical-align: top; padding-right: 10px; }
+        /* ── Cards 2 colonnes ── */
+        .two-col-table { width: 100%; border-collapse: collapse; }
+        .two-col-table > tr > td {
+            width: 50%;
+            vertical-align: top;
+            padding-right: 8px;
+        }
+        .two-col-table > tr > td:last-child { padding-right: 0; padding-left: 8px; }
 
         .card-inner {
-            border: 1px solid #ddd;
-            border-radius: 3px;
+            border: 1px solid #bbdefb;
+            border-top: 3px solid #0288d1;
+            border-radius: 2px;
             padding: 10px;
             font-size: 10px;
+            background: #fafcff;
         }
-        .card-inner p { margin-bottom: 5px; }
+        .card-inner p { margin-bottom: 5px; color: #333; }
+        .card-inner strong { color: #1a237e; }
 
         /* ── Pied de page ── */
         .footer {
@@ -109,12 +181,21 @@
             bottom: 0;
             left: 0; right: 0;
             font-size: 9px;
-            color: #aaa;
-            border-top: 1px solid #eee;
+            color: #90a4ae;
+            border-top: 2px solid #0288d1;
             padding: 4px 20px;
             text-align: center;
+            background: white;
         }
+
         .page-break { page-break-after: always; }
+
+        /* ── Bande décorative verte ── */
+        .green-stripe {
+            height: 3px;
+            background: #2e7d32;
+            margin-bottom: 14px;
+        }
     </style>
 </head>
 <body>
@@ -129,35 +210,62 @@
 
 {{-- Pied de page fixe --}}
 <div class="footer">
-    Document généré le {{ now()->format('d/m/Y à H:i') }} — Confidentiel RH
+    Document généré le {{ now()->format('d/m/Y à H:i') }} &nbsp;|&nbsp; Confidentiel RH
 </div>
 
 {{-- ══════════════════════════ EN-TÊTE ══════════════════════════ --}}
 <div class="header">
-    <table class="header-table">
-        <tr>
-            <td class="header-photo">
-                @if($photoBase64)
-                    <img src="{{ $photoBase64 }}" alt="Photo">
-                @endif
-            </td>
-            <td class="header-info">
-                <h1>{{ $fullName ?: 'N/A' }}</h1>
-                @if($emp->affectationActuelle?->fonction)
-                    <p style="color:#f39c12; font-weight:bold;">
-                        {{ $emp->affectationActuelle->fonction->LIB_FONCTION_FR ?? '' }}
-                    </p>
-                @endif
-                <p>{{ $emp->ADRESSE_ELEC ?? '' }}</p>
-                <p>{{ $emp->TEL_PORTABLE ?? $emp->TEL_FIXE ?? '' }}</p>
-            </td>
-        </tr>
-    </table>
+    <div class="header-accent"></div>
+    <div class="header-inner">
+        <table class="header-table">
+            <tr>
+                {{-- Photo --}}
+                <td class="header-photo">
+                    @if($photoBase64)
+                        <img src="{{ $photoBase64 }}" alt="Photo">
+                    @else
+                        <div class="photo-placeholder"></div>
+                    @endif
+                </td>
+
+                {{-- Infos --}}
+                <td class="header-info">
+                    <div class="h1" style="font-size:22px; font-weight:bold; color:#fff; margin-bottom:5px;">
+                        {{ $fullName ?: 'N/A' }}
+                    </div>
+                    
+                    @if($emp->affectationActuelle?->fonction)
+                        <div class="fonction">
+                            {{ $emp->affectationActuelle->fonction->LIB_FONCTION_FR ?? '' }}
+                        </div>
+                    @endif
+                    <div class="contact">&#9993;  {{ $emp->ADRESSE_ELEC ?? 'N/A' }}</div>
+                    <div class="contact">&#9742;  {{ $emp->TEL_PORTABLE ?? $emp->TEL_FIXE ?? 'N/A' }}</div>
+                </td>
+
+                {{-- Logo --}}
+                @php
+                    $logoPath = public_path('images/cv/logo.png'); // ← mettez votre logo ici
+                    $logoBase64 = null;
+                    if (file_exists($logoPath)) {
+                        $logoBase64 = 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath));
+                    }
+                @endphp
+                <td class="header-right">
+                    @if($logoBase64)
+                        <img src="{{ $logoBase64 }}" alt="Logo">
+                    @endif
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
+
+<div class="green-stripe"></div>
 
 {{-- ══════════════════════════ INFOS PERSONNELLES ══════════════════════════ --}}
 <div class="section">
-    <div class="section-title">Informations personnelles</div>
+    <div class="section-title title-blue">&#9673; Informations personnelles</div>
     <table class="info-grid">
         <tr>
             <td><span class="label">Nom</span><strong>{{ $nom ?: 'N/A' }}</strong></td>
@@ -168,7 +276,10 @@
             <td><span class="label">Email</span><strong>{{ $emp->ADRESSE_ELEC ?? 'N/A' }}</strong></td>
         </tr>
         <tr>
-            <td colspan="2"><span class="label">Adresse</span><strong>{{ $emp->ADRESSE_FR ?? $emp->ADRESSE_AR ?? 'N/A' }}</strong></td>
+            <td colspan="2">
+                <span class="label">Adresse</span>
+                <strong>{{ $emp->ADRESSE_FR ?? $emp->ADRESSE_AR ?? 'N/A' }}</strong>
+            </td>
         </tr>
     </table>
 </div>
@@ -178,18 +289,18 @@
     <table class="two-col-table">
         <tr>
             <td>
-                <div class="section-title">Affectation actuelle</div>
+                <div class="section-title title-blue">&#9673; Affectation actuelle</div>
                 <div class="card-inner">
                     @php $currentAff = $emp->affectationActuelle; @endphp
                     @if($currentAff)
                         <p><strong>Établissement :</strong>
-                            {{ $currentAff->CD_ETAB ?? 'N/A' }}
+                            {{ $currentAff->code_etab ?? 'N/A' }}
                             @if($currentAff->etablissement)
-                                — {{ $currentAff->etablissement->LIBELLE_FR_AFF ?? '' }}
+                                — {{ $currentAff->etablissement->NOM_ETAB ?? '' }}
                             @endif
                         </p>
                         <p><strong>Fonction :</strong>
-                            {{ $currentAff->CODE_FONCTION ?? 'N/A' }}
+                            {{ $currentAff->fonction_id ?? 'N/A' }}
                             @if($currentAff->fonction)
                                 — {{ $currentAff->fonction->LIB_FONCTION_FR ?? '' }}
                             @endif
@@ -203,7 +314,7 @@
                 </div>
             </td>
             <td>
-                <div class="section-title info">Statut actuel</div>
+                <div class="section-title title-blue">&#9673; Statut actuel</div>
                 <div class="card-inner">
                     <p><strong>Cadre :</strong>
                         {{ $emp->cadreActuel?->id_cadre ?? 'N/A' }}
@@ -231,7 +342,7 @@
 
 {{-- ══════════════════════════ DIPLÔMES ══════════════════════════ --}}
 <div class="section">
-    <div class="section-title grey">Diplômes</div>
+    <div class="section-title title-grey">&#9673; Diplômes</div>
     <table class="data-table">
         <thead>
             <tr>
@@ -258,11 +369,10 @@
 
 {{-- ══════════════════════════ HISTORIQUES ══════════════════════════ --}}
 <div class="section">
-    <div class="section-title dark">Historique cadres / grades / échelons</div>
-    <table class="two-col-table" style="vertical-align:top;">
+    <div class="section-title title-dark">&#9673; Historique cadres / grades / échelons</div>
+    <table style="width:100%; border-collapse:collapse;">
         <tr>
-            {{-- Cadres --}}
-            <td style="width:33%; padding-right:6px;">
+            <td style="width:33%; vertical-align:top; padding-right:5px;">
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Cadre</th><th>Date</th></tr></thead>
                     <tbody>
@@ -270,7 +380,7 @@
                             <tr>
                                 <td>{{ $item->id_cadre ?? 'N/A' }}</td>
                                 <td>{{ $item->cadre?->Lib_Cadre_FR ?? 'N/A' }}</td>
-                                <td>{{ optional($item->DT_AFF_Cadr)->format('d/m/Y') ?? 'N/A' }}</td>
+                                <td>{{ optional($item->DT_AFF_Cadre)->format('d/m/Y') ?? 'N/A' }}</td>
                             </tr>
                         @empty
                             <tr><td colspan="3" class="empty-msg">Aucun.</td></tr>
@@ -278,8 +388,7 @@
                     </tbody>
                 </table>
             </td>
-            {{-- Grades --}}
-            <td style="width:33%; padding-right:6px;">
+            <td style="width:33%; vertical-align:top; padding-right:5px;">
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Grade</th><th>Date</th></tr></thead>
                     <tbody>
@@ -295,8 +404,7 @@
                     </tbody>
                 </table>
             </td>
-            {{-- Échelons --}}
-            <td style="width:33%;">
+            <td style="width:34%; vertical-align:top;">
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Échelon</th><th>Date</th></tr></thead>
                     <tbody>
@@ -318,7 +426,7 @@
 
 {{-- ══════════════════════════ HISTORIQUE AFFECTATIONS ══════════════════════════ --}}
 <div class="section">
-    <div class="section-title success">Historique des affectations</div>
+    <div class="section-title title-green">&#9673; Historique des affectations</div>
     <table class="data-table">
         <thead>
             <tr>
