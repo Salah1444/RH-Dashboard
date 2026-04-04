@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link rel="shortcut icon" href="{{ asset('images/rh-logo.png') }}" type="image/x-icon">
     <title>Dashboard-RH</title>
     <!-- Custom fonts for this template-->
     <link href="{{ asset("vendor/fontawesome-free/css/all.min.css") }}" rel="stylesheet" type="text/css">
@@ -23,10 +23,7 @@ href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/cv.css') }}">
-
-
 </head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->

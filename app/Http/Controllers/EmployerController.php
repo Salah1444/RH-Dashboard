@@ -52,6 +52,24 @@ class EmployerController extends Controller
             'Employer', 'regions', 'cadres', 'situationsFamiliales', 'stats'
         ));
     }
+    // Modifier l'image de profiel
+    public function updatePhoto(Request $request, $id)
+{
+    $request->validate([
+        'photo' => 'image|mimes:jpg,jpeg,png|max:2048'
+    ]);
+
+    $employer = Employer::findOrFail($id);
+
+    if ($request->hasFile('photo')) {
+
+        $path = $request->file('photo')->store('cv','public');
+        $employer->photo = $path;
+        $employer->save();
+    }
+    return back();
+}
+    // exporter le CV
  public function exportCV($id)
 {
     $Employer = Employer::with([

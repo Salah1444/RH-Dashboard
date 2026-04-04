@@ -29,7 +29,8 @@ Route::prefix('employers')->name('employers.')->middleware(['auth', 'verified'])
         abort_unless($firstEmployerId, 404, 'No employer record found.');
         return redirect()->route('employers.show', $firstEmployerId);
     })->name('show.default');
-    
+    Route::post('/update-photo/{id}', [EmployerController::class, 'updatePhoto'])
+->name('photo.update');
     Route::get('/{id}/cv/export', [EmployerController::class, 'exportCV'])
         ->whereNumber('id')
         ->name('cv.export');         
