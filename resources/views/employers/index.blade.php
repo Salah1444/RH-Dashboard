@@ -4,87 +4,86 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-       
-            <!-- Page Heading -->
-<div class="row mb-4">
 
-    <!-- Total -->
-    <div class="col-xl-4 col-md-4 mb-3">
-        <div class="card border-0 text-white shadow"
-             style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); border-radius:14px;">
-            <div class="card-body d-flex align-items-center gap-3 py-3">
-                <div class="rounded-3 mr-2 d-flex align-items-center justify-content-center flex-shrink-0"
-                     style="width:48px;height:48px;background:rgba(255,255,255,.2);font-size:1.3rem;">
-                    <i class="fa fa-users"></i>
-                </div>
-                <div>
-                    <div class="text-uppercase fw-semibold"
-                         style="font-size:.7rem;letter-spacing:.07em;opacity:.85;">
-                        Total employés
-                    </div>
-                    <div class="fw-bold" style="font-size:1.7rem;line-height:1.1;">
-                        {{ $Employer->count() }}
+        <!-- Page Heading -->
+        <div class="row mb-4">
+
+            <!-- Total -->
+            <div class="col-xl-4 col-md-4 mb-3">
+                <div class="card border-0 text-white shadow"
+                    style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); border-radius:14px;">
+                    <div class="card-body d-flex align-items-center gap-3 py-3">
+                        <div class="rounded-3 mr-2 d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width:48px;height:48px;background:rgba(255,255,255,.2);font-size:1.3rem;">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="text-uppercase fw-semibold"
+                                style="font-size:.7rem;letter-spacing:.07em;opacity:.85;">
+                                Total employés
+                            </div>
+                            <div class="fw-bold" style="font-size:1.7rem;line-height:1.1;">
+                                {{ $Employer->count() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Hommes -->
-    <div class="col-xl-4 col-md-4 mb-3">
-        <div class="card border-0 text-white shadow"
-             style="background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%); border-radius:14px;">
-            <div class="card-body d-flex align-items-center gap-3 py-3">
-                <div class="rounded-3 mr-2 d-flex align-items-center justify-content-center flex-shrink-0"
-                     style="width:48px;height:48px;background:rgba(255,255,255,.2);font-size:1.3rem;">
-                    <i class="fa fa-mars"></i>
-                </div>
-                <div>
-                    <div class="text-uppercase fw-semibold"
-                         style="font-size:.7rem;letter-spacing:.07em;opacity:.85;">
-                        Hommes
-                    </div>
-                    <div class="fw-bold" style="font-size:1.7rem;line-height:1.1;">
-                        {{ $Employer->where('SEXE','M')->count() }}
+            <!-- Hommes -->
+            <div class="col-xl-4 col-md-4 mb-3">
+                <div class="card border-0 text-white shadow"
+                    style="background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%); border-radius:14px;">
+                    <div class="card-body d-flex align-items-center gap-3 py-3">
+                        <div class="rounded-3 mr-2 d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width:48px;height:48px;background:rgba(255,255,255,.2);font-size:1.3rem;">
+                            <i class="fa fa-mars"></i>
+                        </div>
+                        <div>
+                            <div class="text-uppercase fw-semibold"
+                                style="font-size:.7rem;letter-spacing:.07em;opacity:.85;">
+                                Hommes
+                            </div>
+                            <div class="fw-bold" style="font-size:1.7rem;line-height:1.1;">
+                                {{ $Employer->where('SEXE', 'M')->count() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Femmes -->
-    <div class="col-xl-4 col-md-4 mb-3">
-        <div class="card border-0 text-white shadow"
-             style="background: linear-gradient(135deg, #e74a8b 0%, #b5246a 100%); border-radius:14px;">
-            <div class="card-body d-flex align-items-center gap-3 py-3">
-                <div class="rounded-3 mr-2 d-flex align-items-center justify-content-center flex-shrink-0"
-                     style="width:48px;height:48px;background:rgba(255,255,255,.2);font-size:1.3rem;">
-                    <i class="fa fa-venus"></i>
-                </div>
-                <div>
-                    <div class="text-uppercase fw-semibold"
-                         style="font-size:.7rem;letter-spacing:.07em;opacity:.85;">
-                        Femmes
-                    </div>
-                    <div class="fw-bold" style="font-size:1.7rem;line-height:1.1;">
-                        {{ $Employer->where('SEXE','F')->count() }}
+            <!-- Femmes -->
+            <div class="col-xl-4 col-md-4 mb-3">
+                <div class="card border-0 text-white shadow"
+                    style="background: linear-gradient(135deg, #e74a8b 0%, #b5246a 100%); border-radius:14px;">
+                    <div class="card-body d-flex align-items-center gap-3 py-3">
+                        <div class="rounded-3 mr-2 d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width:48px;height:48px;background:rgba(255,255,255,.2);font-size:1.3rem;">
+                            <i class="fa fa-venus"></i>
+                        </div>
+                        <div>
+                            <div class="text-uppercase fw-semibold"
+                                style="font-size:.7rem;letter-spacing:.07em;opacity:.85;">
+                                Femmes
+                            </div>
+                            <div class="fw-bold" style="font-size:1.7rem;line-height:1.1;">
+                                {{ $Employer->where('SEXE', 'F')->count() }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-</div>
-        
+        </div>
+
 
         <!-- DataTables Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Liste des employés</h6>
+
             <div class="card-header py-3 d-flex flex-wrap align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Liste des employés</h6>
                 <a href="{{ route('employers.create') }}" class="btn btn-sm btn-primary shadow-sm mt-2 mt-sm-0"
-                   style="border-radius:10px;">
+                    style="border-radius:10px;">
                     <i class="fas fa-user-plus mr-1"></i> Ajouter / import Excel
                 </a>
             </div>
@@ -127,8 +126,8 @@
                         <tbody>
                             @foreach($Employer as $i => $emp)
                                 @php
-                                    
-                                    
+
+
 
                                     $aff = $emp->affectationActuelle;
                                     $cadre = $emp->cadreActuel?->cadre?->Lib_Cadre_FR;
@@ -142,7 +141,7 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
-                                            
+
                                             <div>
                                                 <div class="fw-semibold">
                                                     {{ $emp->NOM_PRENOM_FR ?? '—' }}
@@ -180,13 +179,13 @@
 
                                     <td>
                                         @if($cadre)
-                                            <span >{{ $cadre }}</span>
+                                            <span>{{ $cadre }}</span>
                                         @endif
                                     </td>
 
                                     <td>
                                         @if($grade)
-                                            <span >{{ $grade }}</span>
+                                            <span>{{ $grade }}</span>
                                         @endif
                                     </td>
 

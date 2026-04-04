@@ -39,7 +39,7 @@
             background: #0288d1;
         }
 
-        .header-table { width: 100%; }
+        .headers-table { width: 100%; }
         .header-photo { width: 110px; vertical-align: middle; }
         .header-photo img {
             width: 95px;
@@ -253,7 +253,7 @@
 <<<<<<< HEAD
     <div class="header-accent"></div>
     <div class="header-inner">
-        <table class="header-table">
+        <table class="headers-table">
             <tr>
                 {{-- Photo --}}
                 <td class="header-photo">

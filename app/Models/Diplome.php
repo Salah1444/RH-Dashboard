@@ -4,21 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Diplome extends Model
 {
     protected $table      = 'diplomes';
-    protected $primaryKey = 'id_diplome';
-
+    protected $primaryKey = 'CD_DIP';
     protected $fillable = [
-        'code_agent', 'CD_DIPP', 'LL_DIP',
-        'DT_DIP', 'etablissement_formation',
-        'montion', 'type_dip', 'date_obtenue', 'PDF',
+        'LL_DIP', 'etablissement_formation',
+        'DT_DIP', 'TYPE_DIP', 'montion',
+        'code_agent', 'PDF',
     ];
 
     protected $casts = [
-        'DT_DIP'       => 'date',
-        'date_obtenue' => 'date',
+        'DT_DIP' => 'date',
     ];
 
     public function employer(): BelongsTo

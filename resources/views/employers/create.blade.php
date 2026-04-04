@@ -62,8 +62,6 @@
                     <div class="card-body">
                         <form action="{{ route('employers.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-
-                            <p class="small text-muted mb-3">{{ __('employer_create.uml_intro') }}</p>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label class="font-weight-bold text-secondary small" for="CIN_A">{{ __('employer_create.cin_alpha') }}</label>
@@ -217,9 +215,9 @@
                                     @error('NUM_PB')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="font-weight-bold text-secondary small" for="photo">{{ __('employer_create.photo') }}</label>
+                                    <label class="label-control font-weight-bold text-secondary small" for="photo">{{ __('employer_create.photo') }}</label>
                                     <input type="file" name="photo" id="photo" accept="image/*"
-                                           class="form-control-file @error('photo') is-invalid @enderror">
+                                           class="form-control @error('photo') is-invalid @enderror">
                                     @error('photo')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                 </div>
                             </div>
@@ -241,7 +239,7 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <p class="text-muted small mb-3">{{ __('employer_create.excel_intro') }}</p>
+                        
                         <a href="{{ route('employers.import.template') }}"
                            class="btn btn-outline-success btn-block mb-4 shadow-sm" style="border-radius:10px;">
                             <i class="fas fa-download {{ $isRtl ? 'ml-2' : 'mr-2' }}"></i>{{ __('employer_create.download_template') }}
@@ -250,9 +248,9 @@
                         <form action="{{ route('employers.import') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label class="font-weight-bold text-secondary small" for="import_file">{{ __('employer_create.file_label') }}</label>
+                                <label class="form-label font-weight-bold text-secondary small" for="import_file">{{ __('employer_create.file_label') }}</label>
                                 <input type="file" name="file" id="import_file" required
-                                       class="form-control-file @error('file') is-invalid @enderror"
+                                       class="form-control @error('file') is-invalid @enderror"
                                        accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv">
                                 @error('file')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                             </div>

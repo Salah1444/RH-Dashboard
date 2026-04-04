@@ -22,7 +22,7 @@
     <div class="header">
         <div class="header-accent"></div>
         <div class="header-inner">
-            <table class="header-table">
+            <table class="headers-table">
                 <tr>
                     {{-- Photo --}}
                     <td class="header-photo">

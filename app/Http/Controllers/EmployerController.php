@@ -89,7 +89,7 @@ class EmployerController extends Controller
             ->orderBy('Sit_Familiale')
             ->pluck('Sit_Familiale');
 
-        // ── Requête principale paginée ─────────────────────────────
+        // Requête principale paginée 
         $Employer = Employer::query()
             ->with([
                 'affectationActuelle.etablissement.commune.province.region',

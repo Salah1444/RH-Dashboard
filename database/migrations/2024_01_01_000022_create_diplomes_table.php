@@ -9,15 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('diplomes', function (Blueprint $table) {
-            $table->id('id_diplome');
-            $table->string('CD_DIPP', 20)->nullable();
-            $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
+            $table->id('CD_DIP');
+           
             $table->string('LL_DIP', 200)->nullable();
             $table->date('DT_DIP')->nullable();
+             $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();
             $table->string('etablissement_formation', 200)->nullable();
             $table->float('montion')->nullable();
-            $table->string('type_dip', 100)->nullable();
-            $table->date('date_obtenue')->nullable();
+            $table->enum('TYPE_DIP', ['SCOLAIRE', 'PRO']);
             $table->string('PDF', 200)->nullable();
             $table->timestamps();
         });

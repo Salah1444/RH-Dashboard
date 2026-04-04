@@ -32,7 +32,7 @@
             background: #0288d1;
         }
 
-        .header-table { width: 100%; }
+        .headers-table { width: 100%; }
         .header-photo { width: 110px; vertical-align: middle; }
         .header-photo img {
             width: 95px;
@@ -41,6 +41,7 @@
             border: 3px solid #0288d1;
             border-radius: 4px;
         }
+        
         .header-photo .photo-placeholder {
             width: 95px;
             height: 115px;
