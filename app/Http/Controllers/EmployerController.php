@@ -8,7 +8,6 @@ use App\Exports\EmployersImportTemplate;
 use App\Http\Requests\StoreEmployerRequest;
 use App\Imports\EmployersImport;
 use App\Models\Affectation;
-
 use App\Models\Commune;
 use App\Models\Employer;
 use App\Models\Position;
