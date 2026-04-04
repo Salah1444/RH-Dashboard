@@ -3,14 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cadre;
-use App\Models\Employer;
-use App\Models\Affectation;
-use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;   
+use App\Exports\EmployersImportTemplate;
+use App\Http\Requests\StoreEmployerRequest;
+use App\Imports\EmployersImport;
+use App\Models\Affectation;
+
+use App\Models\Commune;
+use App\Models\Employer;
+use App\Models\Position;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployerController extends Controller
 {
+    public function create(): View
+    {
+        $communes = Commune::query()
+            ->orderBy('LIB_COMMUNE_FR')
+            ->get(['CD_COM', 'LIB_COMMUNE_FR']);
+
+        $positions = Position::query()
+            ->orderBy('LIB_POSITION_FR')
+            ->get(['COD_POS', 'LIB_POSITION_FR']);
+
+        return view('employers.create', compact('communes', 'positions'));
+    }
+
+    public function store(StoreEmployerRequest $request): RedirectResponse
+    {
+        $data = $request->validated();
+        unset($data['photo']);
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('employer-photos', 'public');
+        } else {
+            $data['photo'] = '';
+        }
+
+        /** @var Employer $employer */
+        $employer = Employer::query()->create($data);
+
+        return redirect()
+            ->route('employers.show', $employer->COD_AG)
+            ->with('success', __('employer_create.saved_success'));
+    }
+
+    public function importTemplate()
+    {
+        return Excel::download(new EmployersImportTemplate(), 'modele_import_employes.xlsx');
+    }
+
+    public function import(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:10240'],
+        ]);
+
+        try {
+            Excel::import(new EmployersImport, $request->file('file'));
+        } catch (\Throwable $e) {
+            return back()->withErrors([
+                'file' => 'Échec de l’import : '.$e->getMessage(),
+            ]);
+        }
+
+        return back()->with('success', __('employer_create.import_success'));
+    }
     public function index(Request $request)
     {
         // ── Listes pour les filtres ────────────────────────────────
@@ -52,6 +114,7 @@ class EmployerController extends Controller
             'Employer', 'regions', 'cadres', 'situationsFamiliales', 'stats'
         ));
     }
+
     // Modifier l'image de profiel
     public function updatePhoto(Request $request, $id)
 {
@@ -86,6 +149,7 @@ class EmployerController extends Controller
         'affectations.etablissement',
         'affectations.fonction',
     ])->findOrFail($id);
+
     $photoBase64 = null;
 
     if ($Employer->photo) {

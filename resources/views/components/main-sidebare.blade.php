@@ -4,6 +4,7 @@
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon ">
                     <img width="50" height="50" class="bg-white img-logo p-2" src="{{ asset('images/rh-logo.png') }}" alt="">
+
                 </div>
                 <div class="sidebar-brand-text mx-3">Dashboard <sup>RH</sup></div>
             </a>
@@ -35,8 +36,10 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Employer:</h6>
-                        <a class="collapse-item" href="{{route('employers.index') }}">Accueil</a>
+                        <h6 class="collapse-header">Employés</h6>
+                        <a class="collapse-item" href="{{ route('employers.index') }}">Liste</a>
+                        <a class="collapse-item" href="{{ route('employers.create') }}">Ajouter / import Excel</a>
+
                     </div>
                 </div>
             </li>

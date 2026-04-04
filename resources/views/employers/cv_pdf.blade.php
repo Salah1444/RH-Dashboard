@@ -196,6 +196,41 @@
             background: #2e7d32;
             margin-bottom: 14px;
         }
+        .profile-container{
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.profile-img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #09A6ED;
+}
+
+.upload-icon{
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: #09A6ED;
+    color: white;
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    cursor:pointer;
+    border:2px solid white;
+    transition:0.3s;
+}
+
+.upload-icon:hover{
+    background:#0b87c4;
+}
     </style>
 </head>
 <body>
@@ -215,6 +250,7 @@
 
 {{-- ══════════════════════════ EN-TÊTE ══════════════════════════ --}}
 <div class="header">
+<<<<<<< HEAD
     <div class="header-accent"></div>
     <div class="header-inner">
         <table class="header-table">
@@ -266,6 +302,7 @@
 {{-- ══════════════════════════ INFOS PERSONNELLES ══════════════════════════ --}}
 <div class="section">
     <div class="section-title title-blue">&#9673; Informations personnelles</div>
+
     <table class="info-grid">
         <tr>
             <td><span class="label">Nom</span><strong>{{ $nom ?: 'N/A' }}</strong></td>
@@ -280,6 +317,7 @@
                 <span class="label">Adresse</span>
                 <strong>{{ $emp->ADRESSE_FR ?? $emp->ADRESSE_AR ?? 'N/A' }}</strong>
             </td>
+
         </tr>
     </table>
 </div>
@@ -290,6 +328,7 @@
         <tr>
             <td>
                 <div class="section-title title-blue">&#9673; Affectation actuelle</div>
+
                 <div class="card-inner">
                     @php $currentAff = $emp->affectationActuelle; @endphp
                     @if($currentAff)
@@ -301,6 +340,7 @@
                         </p>
                         <p><strong>Fonction :</strong>
                             {{ $currentAff->fonction_id ?? 'N/A' }}
+
                             @if($currentAff->fonction)
                                 — {{ $currentAff->fonction->LIB_FONCTION_FR ?? '' }}
                             @endif
@@ -315,6 +355,7 @@
             </td>
             <td>
                 <div class="section-title title-blue">&#9673; Statut actuel</div>
+
                 <div class="card-inner">
                     <p><strong>Cadre :</strong>
                         {{ $emp->cadreActuel?->id_cadre ?? 'N/A' }}
@@ -343,6 +384,7 @@
 {{-- ══════════════════════════ DIPLÔMES ══════════════════════════ --}}
 <div class="section">
     <div class="section-title title-grey">&#9673; Diplômes</div>
+
     <table class="data-table">
         <thead>
             <tr>
@@ -373,6 +415,7 @@
     <table style="width:100%; border-collapse:collapse;">
         <tr>
             <td style="width:33%; vertical-align:top; padding-right:5px;">
+
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Cadre</th><th>Date</th></tr></thead>
                     <tbody>
@@ -381,6 +424,7 @@
                                 <td>{{ $item->id_cadre ?? 'N/A' }}</td>
                                 <td>{{ $item->cadre?->Lib_Cadre_FR ?? 'N/A' }}</td>
                                 <td>{{ optional($item->DT_AFF_Cadre)->format('d/m/Y') ?? 'N/A' }}</td>
+
                             </tr>
                         @empty
                             <tr><td colspan="3" class="empty-msg">Aucun.</td></tr>
@@ -388,7 +432,9 @@
                     </tbody>
                 </table>
             </td>
+
             <td style="width:33%; vertical-align:top; padding-right:5px;">
+
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Grade</th><th>Date</th></tr></thead>
                     <tbody>
@@ -405,6 +451,7 @@
                 </table>
             </td>
             <td style="width:34%; vertical-align:top;">
+
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Échelon</th><th>Date</th></tr></thead>
                     <tbody>
@@ -427,6 +474,7 @@
 {{-- ══════════════════════════ HISTORIQUE AFFECTATIONS ══════════════════════════ --}}
 <div class="section">
     <div class="section-title title-green">&#9673; Historique des affectations</div>
+
     <table class="data-table">
         <thead>
             <tr>

@@ -1,3 +1,4 @@
+
 @extends('layouts.master')
 @section('main')
     <div class="mb-3 d-flex justify-content-end ">
@@ -8,6 +9,7 @@
     @php
         $emp = $Employer;
         $photo = $emp->photo ? "storage/".$emp->photo: "images/avatar-default.svg";
+
         $fullName = trim((string) ($emp->NOM_PRENOM_FR ?? ''));
         $nameParts = preg_split('/\s+/', $fullName, 2) ?: [];
         $nom = $nameParts[0] ?? $fullName;
@@ -322,3 +324,4 @@
     </div>
 
 @endsection
+

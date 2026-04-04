@@ -81,6 +81,12 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Liste des employés</h6>
+            <div class="card-header py-3 d-flex flex-wrap align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Liste des employés</h6>
+                <a href="{{ route('employers.create') }}" class="btn btn-sm btn-primary shadow-sm mt-2 mt-sm-0"
+                   style="border-radius:10px;">
+                    <i class="fas fa-user-plus mr-1"></i> Ajouter / import Excel
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
