@@ -12,7 +12,7 @@ class AffectationController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Affectation::with(['employer', 'etablisement', 'fonction']);
+        $query = Affectation::with(['employer', 'etablissement', 'fonction']);
 
         if ($request->filled('search')) {
             $search = $request->search;

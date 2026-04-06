@@ -50,7 +50,7 @@
                                     {{ auth()->user()->name ?? 'Admin RH' }}
                                 </span>
                                 <img class="img-profile rounded-circle"
-                                     src="{{ asset('img/undraw_profile.svg') }}"
+                                     src="{{ asset('images/cv/avatar-default.svg') }}"
                                      width="32" height="32">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
