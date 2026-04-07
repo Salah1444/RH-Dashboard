@@ -1,97 +1,261 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@yield('title', 'Tableau de Bord RH') – RH Éducation</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --primary: #4e73df; --primary-dark: #2e59d9;
+    --success: #1cc88a; --info: #36b9cc;
+    --warning: #f6c23e; --danger: #e74a3b;
+    --secondary: #858796; --light: #f8f9fc; --dark: #5a5c69;
+    --sidebar-width: 230px; --topbar-height: 70px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',sans-serif; background:#f8f9fc; color:#5a5c69; display:flex; min-height:100vh; font-size:14px; }
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="csrf-token" content="{{ csrf_token() }}">
+  /* SIDEBAR */
+  .sidebar { width:var(--sidebar-width); min-height:100vh; background:linear-gradient(180deg,#4e73df 10%,#224abe 100%); position:fixed; top:0; left:0; z-index:100; display:flex; flex-direction:column; overflow-y:auto; }
+  .sidebar-brand { display:flex; align-items:center; gap:10px; padding:18px 20px; border-bottom:1px solid rgba(255,255,255,.15); text-decoration:none; }
+  .sidebar-brand .brand-icon { width:36px; height:36px; background:rgba(255,255,255,.2); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; color:#fff; }
+  .sidebar-brand .brand-text { font-size:15px; font-weight:800; color:#fff; }
+  .sidebar-brand .brand-text span { font-weight:300; font-size:11px; display:block; opacity:.8; }
+  .sidebar-divider { margin:8px 16px; border:none; border-top:1px solid rgba(255,255,255,.15); }
+  .sidebar-heading { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.5); padding:6px 20px 4px; }
+  .nav-item { list-style:none; }
+  .nav-link { display:flex; align-items:center; gap:10px; padding:10px 20px; color:rgba(255,255,255,.75); text-decoration:none; font-size:13px; font-weight:600; border-left:3px solid transparent; transition:all .2s; }
+  .nav-link:hover, .nav-link.active { color:#fff; background:rgba(255,255,255,.1); border-left-color:rgba(255,255,255,.5); }
+  .nav-link i { width:18px; text-align:center; font-size:14px; }
+  .sidebar-footer { margin-top:auto; padding:16px 20px; border-top:1px solid rgba(255,255,255,.15); display:flex; align-items:center; gap:10px; }
+  .sidebar-footer .avatar { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.25); display:flex; align-items:center; justify-content:center; font-size:16px; color:#fff; }
+  .sidebar-footer .user-info { color:rgba(255,255,255,.85); }
+  .sidebar-footer .user-info .name { font-weight:700; font-size:12px; }
+  .sidebar-footer .user-info .role { font-size:10px; opacity:.7; }
 
-<title>@yield('title','RH-Dashboard') - Système RH</title>
-<link rel="shortcut icon" href="{{ asset('images/rh-logo.png') }}" type="image/x-icon">
-<!-- FontAwesome -->
-<link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+  /* MAIN */
+  .main-content { margin-left:var(--sidebar-width); flex:1; display:flex; flex-direction:column; }
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+  /* TOPBAR */
+  .topbar { height:var(--topbar-height); background:#fff; border-bottom:1px solid #e3e6f0; display:flex; align-items:center; justify-content:space-between; padding:0 24px; position:sticky; top:0; z-index:50; box-shadow:0 2px 4px rgba(0,0,0,.04); }
+  .topbar-left { display:flex; align-items:center; gap:16px; }
+  .topbar-title { font-size:18px; font-weight:700; color:var(--dark); }
+  .topbar-right { display:flex; align-items:center; gap:20px; }
+  .topbar-search { display:flex; align-items:center; gap:8px; background:#f8f9fc; border:1px solid #e3e6f0; border-radius:20px; padding:6px 14px; }
+  .topbar-search input { border:none; background:transparent; font-family:'Nunito',sans-serif; font-size:13px; color:var(--dark); outline:none; width:160px; }
+  .topbar-search i { color:var(--secondary); font-size:12px; }
+  .topbar-badge { position:relative; cursor:pointer; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:var(--secondary); }
+  .topbar-badge:hover { background:#f8f9fc; }
+  .topbar-badge .badge { position:absolute; top:4px; right:4px; background:var(--danger); color:#fff; border-radius:50%; width:14px; height:14px; font-size:9px; display:flex; align-items:center; justify-content:center; font-weight:700; }
 
+  /* PAGE */
+  .page-body { padding:24px; flex:1; }
+  .page-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+  .page-header h1 { font-size:22px; font-weight:700; color:var(--dark); }
 
-<!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<!-- DataTables -->
-<link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-<!-- CV Style -->
-<link rel="stylesheet" href="{{ asset('css/cv.css') }}">
-<!-- SB Admin -->
-<link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+  /* KPI */
+  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:24px; }
+  .kpi-card { background:#fff; border-radius:8px; padding:20px; border-left:4px solid; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 8px rgba(0,0,0,.06); transition:transform .2s,box-shadow .2s; }
+  .kpi-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.1); }
+  .kpi-card.primary { border-color:var(--primary); } .kpi-card.success { border-color:var(--success); }
+  .kpi-card.info { border-color:var(--info); } .kpi-card.warning { border-color:var(--warning); } .kpi-card.danger { border-color:var(--danger); }
+  .kpi-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--secondary); margin-bottom:4px; }
+  .kpi-value { font-size:28px; font-weight:800; color:var(--dark); line-height:1; }
+  .kpi-sub { font-size:11px; color:var(--secondary); margin-top:4px; }
+  .kpi-icon { font-size:36px; opacity:.25; }
+  .kpi-card.primary .kpi-icon { color:var(--primary); } .kpi-card.success .kpi-icon { color:var(--success); }
+  .kpi-card.info .kpi-icon { color:var(--info); } .kpi-card.warning .kpi-icon { color:var(--warning); } .kpi-card.danger .kpi-icon { color:var(--danger); }
+
+  /* CARD */
+  .card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,.06); overflow:hidden; }
+  .card-header { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid #e3e6f0; }
+  .card-title { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--primary); }
+  .card-body { padding:20px; }
+  .chart-container { position:relative; }
+
+  /* TABLE */
+  .table-responsive { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; }
+  table thead th { background:#f8f9fc; padding:10px 14px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--dark); border-bottom:2px solid #e3e6f0; text-align:left; }
+  table tbody tr { border-bottom:1px solid #e3e6f0; transition:background .15s; }
+  table tbody tr:hover { background:#f8f9fc; }
+  table tbody td { padding:10px 14px; font-size:13px; vertical-align:middle; }
+
+  /* BADGES */
+  .badge-pill { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+  .badge-success { background:#d4edda; color:#155724; } .badge-warning { background:#fff3cd; color:#856404; }
+  .badge-danger { background:#f8d7da; color:#721c24; } .badge-info { background:#d1ecf1; color:#0c5460; }
+  .badge-primary { background:#cce5ff; color:#004085; } .badge-secondary { background:#e2e3e5; color:#383d41; }
+
+  /* AVATAR */
+  .avatar-sm { width:30px; height:30px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; margin-right:8px; }
+
+  /* BTNS */
+  .btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:6px; font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; cursor:pointer; border:none; text-decoration:none; }
+  .btn-primary { background:var(--primary); color:#fff; } .btn-primary:hover { background:var(--primary-dark); }
+  .btn-danger  { background:var(--danger); color:#fff; }
+  .btn-sm { font-size:11px; padding:4px 10px; border-radius:4px; border:1px solid #e3e6f0; background:#fff; color:var(--secondary); cursor:pointer; font-family:'Nunito',sans-serif; font-weight:600; }
+  .btn-sm:hover { background:#f8f9fc; }
+
+  /* FORM */
+  .form-group { margin-bottom:16px; }
+  .form-label { display:block; font-size:12px; font-weight:700; margin-bottom:6px; color:var(--dark); }
+  .form-control { width:100%; padding:8px 12px; border:1px solid #e3e6f0; border-radius:6px; font-family:'Nunito',sans-serif; font-size:13px; color:var(--dark); outline:none; }
+  .form-control:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(78,115,223,.15); }
+  .form-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23858796' d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-size:12px; padding-right:32px; }
+  .form-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .invalid-feedback { font-size:11px; color:var(--danger); margin-top:4px; }
+
+  /* ALERTS */
+  .alert { padding:12px 16px; border-radius:6px; font-size:13px; margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+  .alert-success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
+  .alert-danger  { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
+
+  /* PAGINATION */
+  .pagination-wrap { display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-top:1px solid #e3e6f0; }
+  .pagination { display:flex; gap:4px; list-style:none; }
+  .pagination .page-item .page-link { padding:4px 10px; border:1px solid #e3e6f0; border-radius:4px; font-size:12px; color:var(--secondary); cursor:pointer; text-decoration:none; }
+  .pagination .page-item.active .page-link { background:var(--primary); color:#fff; border-color:var(--primary); }
+
+  /* STAT LIST */
+  .stat-list { list-style:none; }
+  .stat-list li { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #f0f0f0; font-size:13px; }
+  .stat-list li:last-child { border-bottom:none; }
+  .progress-bar-wrap { margin-top:4px; height:6px; background:#e3e6f0; border-radius:3px; overflow:hidden; }
+  .progress-bar-fill { height:100%; border-radius:3px; }
+
+  /* FOOTER */
+  footer { text-align:center; padding:16px; font-size:12px; color:var(--secondary); border-top:1px solid #e3e6f0; background:#fff; }
+
+  /* RESPONSIVE */
+  @media (max-width:1100px) { .kpi-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:700px) {
+    .sidebar { width:60px; }
+    .sidebar .brand-text, .sidebar .sidebar-heading, .nav-link span, .sidebar-footer .user-info { display:none; }
+    .main-content { margin-left:60px; }
+    .kpi-grid { grid-template-columns:1fr; }
+    .form-grid { grid-template-columns:1fr; }
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  .kpi-card, .card { animation:fadeUp .4s ease both; }
+</style>
 @stack('styles')
-
 </head>
+<body>
 
-<body id="page-top">
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <a class="sidebar-brand" href="{{ route('dashboard') }}">
+    <div class="brand-icon"><i class="fas fa-graduation-cap"></i></div>
+    <div class="brand-text">RH Éducation<span>Tableau de Bord</span></div>
+  </a>
+  <ul style="list-style:none;padding-top:8px;">
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('dashboard*') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+        <i class="fas fa-tachometer-alt"></i><span>Tableau de Bord</span>
+      </a>
+    </li>
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Gestion RH</div>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('employes*') ? 'active' : '' }}" href="{{ route('employes.index') }}">
+        <i class="fas fa-users"></i><span>Employés</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('affectations*') ? 'active' : '' }}" href="{{ route('affectations.index') }}">
+        <i class="fas fa-map-pin"></i><span>Affectations</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('grades*','cadres*','echelons*') ? 'active' : '' }}" href="{{ route('grades.index') }}">
+        <i class="fas fa-award"></i><span>Grades & Cadres</span>
+      </a>
+    </li>
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Absences & Congés</div>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('absences*') ? 'active' : '' }}" href="{{ route('absences.index') }}">
+        <i class="fas fa-calendar-times"></i><span>Absences</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('congees*') ? 'active' : '' }}" href="{{ route('congees.index') }}">
+        <i class="fas fa-umbrella-beach"></i><span>Congés</span>
+      </a>
+    </li>
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Établissements</div>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('etablissements*') ? 'active' : '' }}" href="{{ route('etablissements.index') }}">
+        <i class="fas fa-school"></i><span>Établissements</span>
+      </a>
+    </li>
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Données</div>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('diplomes*') ? 'active' : '' }}" href="{{ route('diplomes.index') }}">
+        <i class="fas fa-graduation-cap"></i><span>Diplômes</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('famille.conjoints*') ? 'active' : '' }}" href="{{ route('famille.conjoints') }}">
+        <i class="fas fa-ring"></i><span>Conjoints</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('famille.enfants*') ? 'active' : '' }}" href="{{ route('famille.enfants') }}">
+        <i class="fas fa-baby"></i><span>Enfants</span>
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <div class="avatar"><i class="fas fa-user"></i></div>
+    <div class="user-info">
+      <div class="name">{{ auth()->user()->name ?? 'Administrateur' }}</div>
+      <div class="role">Directeur RH</div>
+    </div>
+  </div>
+</aside>
 
-<div id="wrapper">
+<!-- MAIN -->
+<div class="main-content">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <h2 class="topbar-title">@yield('page-title', 'Tableau de Bord')</h2>
+    </div>
+    <div class="topbar-right">
+      <form class="topbar-search" action="{{ route('employes.index') }}" method="GET">
+        <i class="fas fa-search"></i>
+        <input type="text" name="search" placeholder="Rechercher un employé…" value="{{ request('search') }}">
+      </form>
+      <div class="topbar-badge"><i class="fas fa-bell"></i><span class="badge">3</span></div>
+      <div style="width:1px;height:30px;background:#e3e6f0;"></div>
+      <div style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+        <div style="width:34px;height:34px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;">A</div>
+        <span style="font-size:13px;font-weight:600;color:var(--dark);">Admin</span>
+      </div>
+    </div>
+  </div>
 
-<x-main-sidebare/>
+  <!-- CONTENT -->
+  <div class="page-body">
+    @if(session('success'))
+      <div class="alert alert-success"><i class="fas fa-check-circle"></i> {{ session('success') }}</div>
+    @endif
+    @if(session('error'))
+      <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> {{ session('error') }}</div>
+    @endif
+    @yield('content')
+  </div>
 
-<div id="content-wrapper" class="d-flex flex-column">
-
-<div id="content">
-
-<x-main-nav/>
-
-<div class="container-fluid">
-
-@if(session('success'))
-<div class="alert alert-success">
-<i class="fas fa-check-circle"></i> {{ session('success') }}
+  <footer>&copy; {{ date('Y') }} Système RH – Gestion des Ressources Humaines Éducation &nbsp;|&nbsp; Développé avec ❤️</footer>
 </div>
-@endif
-
-@if(session('error'))
-<div class="alert alert-danger">
-<i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-</div>
-@endif
-
-@yield('main')
-
-</div>
-
-</div>
-
-<footer class="sticky-footer bg-white">
-<div class="container my-auto">
-<div class="text-center my-auto">
-<span>Système RH © {{ date('Y') }}</span>
-</div>
-</div>
-</footer>
-
-</div>
-
-</div>
-
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
-
-<!-- JS -->
-
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-<!-- SB Admin -->
-<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-<!-- DataTables -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-<!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 @stack('scripts')
-
 </body>
 </html>

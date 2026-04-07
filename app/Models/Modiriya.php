@@ -1,25 +1,11 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Modiriya extends Model
-{
-    protected $table      = 'modiriya';
+class Modiriya extends Model {
+    protected $table = 'modiriya';
     protected $primaryKey = 'modiriya_id';
-
     protected $fillable = ['nom_modiriya', 'id_region'];
-
-    public function region(): BelongsTo
-    {
-        return $this->belongsTo(Region::class, 'id_region', 'CD_REG');
-    }
-
-    public function etablissements(): HasMany
-    {
-        return $this->hasMany(Etablisement::class, 'modiriya_id', 'modiriya_id');
-    }
+    public function region()         { return $this->belongsTo(Region::class, 'id_region', 'CD_REG'); }
+    public function etablissements() { return $this->hasMany(Etablisement::class, 'modiriya_id', 'modiriya_id'); }
 }

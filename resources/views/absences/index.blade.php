@@ -2,7 +2,7 @@
 @section('title','Absences')
 @section('page-title','Absences')
 
-@section('main')
+@section('content')
 <div class="page-header">
   <h1>Gestion des Absences</h1>
   <a href="{{ route('absences.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Nouvelle Absence</a>

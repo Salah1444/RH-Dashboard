@@ -1,12 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('title','Congés')
 @section('page-title','Gestion des Congés')
 
-@section('main')
+@section('content')
 <div class="page-header">
   <h1>Types de Congés</h1>
   <a href="{{ route('congees.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Nouveau Congé</a>
 </div>
+
 <div class="card">
   <div class="card-header"><span class="card-title">Liste des congés</span></div>
   <div class="card-body" style="padding:0;">

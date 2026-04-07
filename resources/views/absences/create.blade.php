@@ -2,7 +2,7 @@
 @section('title', isset($absence) ? 'Modifier Absence' : 'Nouvelle Absence')
 @section('page-title', isset($absence) ? 'Modifier Absence' : 'Nouvelle Absence')
 
-@section('main')
+@section('content')
 <div class="page-header">
   <h1>{{ isset($absence) ? 'Modifier l\'absence' : 'Enregistrer une Absence' }}</h1>
   <a href="{{ route('absences.index') }}" class="btn" style="background:#e3e6f0;color:var(--dark);"><i class="fas fa-arrow-left"></i> Retour</a>

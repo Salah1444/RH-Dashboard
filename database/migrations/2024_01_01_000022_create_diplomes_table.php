@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('diplomes', function (Blueprint $table) {
             $table->id('CD_DIP');
-           
             $table->string('LL_DIP', 200)->nullable();
             $table->date('DT_DIP')->nullable();
              $table->foreignId('code_agent')->constrained('employer', 'COD_AG')->cascadeOnDelete();

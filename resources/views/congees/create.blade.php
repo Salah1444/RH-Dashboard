@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('title', isset($congee) ? 'Modifier Congé' : 'Nouveau Congé')
 @section('page-title', isset($congee) ? 'Modifier Congé' : 'Nouveau Congé')
 
-@section('main')
+@section('content')
 <div class="page-header">
   <h1>{{ isset($congee) ? 'Modifier le congé' : 'Créer un congé' }}</h1>
   <a href="{{ route('congees.index') }}" class="btn" style="background:#e3e6f0;color:var(--dark);"><i class="fas fa-arrow-left"></i> Retour</a>

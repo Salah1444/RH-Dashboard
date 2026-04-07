@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployerController;
@@ -12,39 +13,11 @@ use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\GradeController;
 
 Route::middleware(['auth'])->group(function () {
-Route::get('/locale/{locale}', function (string $locale) {
-    if (in_array($locale, ['fr', 'ar'], true)) {
-        session(['locale' => $locale]);
-    }
 
-    return redirect()->back();
-})->name('locale.switch');
     Route::get('/',          [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    // employer 
-    Route::prefix('employers')->name('employers.')->group(function () {
 
-    // ── Routes sans paramètre ──────────────────────────────────
-    Route::get('/index', [EmployerController::class, 'index'])->name('index');
-    Route::get('/create', [EmployerController::class, 'create'])->name('create');
-    Route::post('/store', [EmployerController::class, 'store'])->name('store');
-    Route::get('/import/template', [EmployerController::class, 'importTemplate'])->name('import.template');
-    Route::post('/import', [EmployerController::class, 'import'])->name('import');
-    Route::get('/show', function () {
-        $keyName = (new Employer())->getKeyName();
-        $firstEmployerId = Employer::query()->orderBy($keyName)->value($keyName);
-        abort_unless($firstEmployerId, 404, 'No employer record found.');
-        return redirect()->route('employers.show', $firstEmployerId);
-    })->name('show.default');
-    Route::post('/update-photo/{id}', [EmployerController::class, 'updatePhoto'])
-->name('photo.update');
-    Route::get('/{id}/cv/export', [EmployerController::class, 'exportCV'])
-        ->whereNumber('id')
-        ->name('cv.export');         
-    Route::get('/{id}', [EmployerController::class, 'show'])
-        ->whereNumber('id')
-        ->name('show');
-});
+    Route::resource('employes',        EmployerController::class);
     Route::resource('affectations',    AffectationController::class)->except(['show']);
     Route::resource('absences',        AbsenceController::class)->except(['show']);
     Route::resource('congees',         CongeeController::class)->except(['show']);
