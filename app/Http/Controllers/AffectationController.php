@@ -8,6 +8,11 @@ use App\Models\Etablissement;
 use App\Models\Fonction;
 use Illuminate\Http\Request;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\AffectationsImport;
+use App\Exports\AffectationsImportTemplate;
+
+
 class AffectationController extends Controller
 {
     public function index(Request $request)
@@ -103,5 +108,24 @@ class AffectationController extends Controller
         $affectation->delete();
         return redirect()->route('affectations.index')
                          ->with('success', 'Affectation supprimée.');
+    }
+
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv',
+        ]);
+        try {
+            Excel::import(new AffectationsImport, $request->file('excel_file'));
+            return redirect()->route('affectations.index')->with('success', 'Importation réussie.');
+        } catch (\Throwable $e) {
+            return redirect()->route('affectations.index')->with('error', 'Erreur lors de l\'importation : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new AffectationsImportTemplate, 'modele_affectations.xlsx');
     }
 }

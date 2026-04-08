@@ -8,6 +8,9 @@ use App\Models\Etablissement;
 use App\Models\Modiriya;
 use App\Models\NetEtab;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\EtablissementsImport;
+use App\Exports\EtablissementsImportTemplate;
 
 class EtablisementController extends Controller
 {
@@ -99,5 +102,24 @@ class EtablisementController extends Controller
     {
         $etablisement->delete();
         return redirect()->route('etablissements.index')->with('success', 'Établissement supprimé.');
+    }
+
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv',
+        ]);
+        try {
+            Excel::import(new EtablissementsImport, $request->file('excel_file'));
+            return redirect()->route('etablissements.index')->with('success', 'Importation réussie.');
+        } catch (\Throwable $e) {
+            return redirect()->route('etablissements.index')->with('error', 'Erreur lors de l\'importation : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new EtablissementsImportTemplate, 'modele_etablissements.xlsx');
     }
 }

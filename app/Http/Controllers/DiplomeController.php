@@ -6,6 +6,10 @@ use App\Models\Diplome;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DiplomesImport;
+use App\Exports\DiplomesImportTemplate;
+
 
 class DiplomeController extends Controller
 {
@@ -91,5 +95,24 @@ class DiplomeController extends Controller
         if ($diplome->PDF) Storage::disk('public')->delete($diplome->PDF);
         $diplome->delete();
         return redirect()->route('diplomes.index')->with('success', 'Diplôme supprimé.');
+    }
+
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv',
+        ]);
+        try {
+            Excel::import(new DiplomesImport, $request->file('excel_file'));
+            return redirect()->route('diplomes.index')->with('success', 'Importation réussie.');
+        } catch (\Throwable $e) {
+            return redirect()->route('diplomes.index')->with('error', 'Erreur lors de l\'importation : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new DiplomesImportTemplate, 'modele_diplomes.xlsx');
     }
 }

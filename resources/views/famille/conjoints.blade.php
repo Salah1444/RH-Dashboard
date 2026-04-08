@@ -10,6 +10,14 @@
   </a>
 </div>
 
+
+<!-- Import Excel -->
+<x-excel-import
+  :import-route="route('famille.conjoints.import')"
+  :template-route="route('famille.conjoints.template')"
+  label="conjoints"
+/>
+
 <div style="display:grid;grid-template-columns:380px 1fr;gap:20px;">
 
   {{-- Formulaire ajout --}}

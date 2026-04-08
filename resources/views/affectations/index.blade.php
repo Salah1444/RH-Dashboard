@@ -10,6 +10,14 @@
   </a>
 </div>
 
+
+<!-- Import Excel -->
+<x-excel-import
+  :import-route="route('affectations.import')"
+  :template-route="route('affectations.template')"
+  label="affectations"
+/>
+
 <!-- KPIs -->
 <div class="kpi-grid">
   <div class="kpi-card primary">

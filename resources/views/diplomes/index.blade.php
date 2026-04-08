@@ -8,6 +8,14 @@
   <a href="{{ route('diplomes.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Ajouter un Diplôme</a>
 </div>
 
+
+<!-- Import Excel -->
+<x-excel-import
+  :import-route="route('diplomes.import')"
+  :template-route="route('diplomes.template')"
+  label="diplômes"
+/>
+
 <div class="kpi-grid">
   <div class="kpi-card primary">
     <div><div class="kpi-label">Total Diplômes</div><div class="kpi-value">{{ number_format($totalDip) }}</div></div>

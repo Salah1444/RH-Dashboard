@@ -8,6 +8,16 @@
   <a href="{{ route('etablissements.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Nouvel Établissement</a>
 </div>
 
+<<<<<<< HEAD
+=======
+<!-- Import Excel -->
+<x-excel-import
+  :import-route="route('etablissements.import')"
+  :template-route="route('etablissements.template')"
+  label="établissements"
+/>
+
+>>>>>>> d206994bd27f931d3cbeaa204d402602c9fa74e0
 <div class="kpi-grid">
   <div class="kpi-card primary">
     <div><div class="kpi-label">Total</div><div class="kpi-value">{{ $totalEtab }}</div></div>

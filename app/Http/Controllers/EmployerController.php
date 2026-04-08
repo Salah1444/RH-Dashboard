@@ -13,7 +13,9 @@ use App\Models\SituationStatutaire;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\EmployersImport;
+use App\Exports\EmployersImportTemplate;
 class EmployerController extends Controller
 {
     public function index(Request $request)
@@ -167,6 +169,24 @@ class EmployerController extends Controller
         $employer->delete();
         return redirect()->route('employes.index')
             ->with('success', 'Employé supprimé.');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv',
+        ]);
+        try {
+            Excel::import(new EmployersImport, $request->file('excel_file'));
+            return redirect()->route('employes.index')->with('success', 'Importation réussie.');
+        } catch (\Throwable $e) {
+            return redirect()->route('employes.index')->with('error', 'Erreur lors de l\'importation : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new EmployersImportTemplate, 'modele_employes.xlsx');
     }
     public function exportCV($id)
     {

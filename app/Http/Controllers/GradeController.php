@@ -10,6 +10,13 @@ use App\Models\EmployeCadreHistory;
 use App\Models\EmployeEchelonHistory;
 use App\Models\Employer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\GradesImport;
+use App\Imports\CadresImport;
+use App\Imports\EchelonsImport;
+use App\Exports\GradesImportTemplate;
+use App\Exports\CadresImportTemplate;
+use App\Exports\EchelonsImportTemplate;
 
 class GradeController extends Controller
 {
@@ -66,7 +73,6 @@ class GradeController extends Controller
         Cadre::create($request->only('CADRE', 'Lib_Cadre_FR', 'Lib_cadre_AR'));
         return redirect()->route('grades.index')->with('success', 'Cadre créé.');
     }
-
     public function destroyCadre(Cadre $cadre)
     {
         $cadre->delete();
@@ -115,5 +121,54 @@ class GradeController extends Controller
         ]);
         EmployeCadreHistory::create($request->all());
         return back()->with('success', 'Historique cadre ajouté.');
+    }
+    /* ──── Import Excel ──── */
+
+    public function importGrades(Request $request)
+    {
+        $request->validate(['excel_file' => 'required|file|mimes:xlsx,xls,csv']);
+        try {
+            Excel::import(new GradesImport, $request->file('excel_file'));
+            return redirect()->route('grades.index')->with('success', 'Grades importés avec succès.');
+        } catch (\Throwable $e) {
+            return redirect()->route('grades.index')->with('error', 'Erreur importation grades : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadGradesTemplate()
+    {
+        return Excel::download(new GradesImportTemplate, 'modele_grades.xlsx');
+    }
+
+    public function importCadres(Request $request)
+    {
+        $request->validate(['excel_file' => 'required|file|mimes:xlsx,xls,csv']);
+        try {
+            Excel::import(new CadresImport, $request->file('excel_file'));
+            return redirect()->route('grades.index')->with('success', 'Cadres importés avec succès.');
+        } catch (\Throwable $e) {
+            return redirect()->route('grades.index')->with('error', 'Erreur importation cadres : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadCadresTemplate()
+    {
+        return Excel::download(new CadresImportTemplate, 'modele_cadres.xlsx');
+    }
+
+    public function importEchelons(Request $request)
+    {
+        $request->validate(['excel_file' => 'required|file|mimes:xlsx,xls,csv']);
+        try {
+            Excel::import(new EchelonsImport, $request->file('excel_file'));
+            return redirect()->route('grades.index')->with('success', 'Échelons importés avec succès.');
+        } catch (\Throwable $e) {
+            return redirect()->route('grades.index')->with('error', 'Erreur importation échelons : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadEchelonsTemplate()
+    {
+        return Excel::download(new EchelonsImportTemplate, 'modele_echelons.xlsx');
     }
 }

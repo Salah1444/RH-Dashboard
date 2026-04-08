@@ -10,6 +10,14 @@
   </a>
 </div>
 
+
+<!-- Import Excel -->
+<x-excel-import
+  :import-route="route('famille.enfants.import')"
+  :template-route="route('famille.enfants.template')"
+  label="enfants"
+/>
+
 <div style="display:grid;grid-template-columns:380px 1fr;gap:20px;">
 
   {{-- Formulaire ajout --}}

@@ -7,6 +7,11 @@ use App\Models\Enfant;
 use App\Models\Employer;
 use App\Models\Garde;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ConjointsImport;
+use App\Imports\EnfantsImport;
+use App\Exports\ConjointsImportTemplate;
+use App\Exports\EnfantsImportTemplate;
 
 class FamilleController extends Controller
 {
@@ -88,5 +93,42 @@ class FamilleController extends Controller
     {
         $enfant->delete();
         return redirect()->route('famille.enfants')->with('success', 'Enfant supprimé.');
+    }
+
+
+    /* ──── Import Excel Conjoints ──── */
+
+    public function importConjoints(Request $request)
+    {
+        $request->validate(['excel_file' => 'required|file|mimes:xlsx,xls,csv']);
+        try {
+            Excel::import(new ConjointsImport, $request->file('excel_file'));
+            return redirect()->route('famille.conjoints')->with('success', 'Conjoints importés avec succès.');
+        } catch (\Throwable $e) {
+            return redirect()->route('famille.conjoints')->with('error', 'Erreur importation : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadConjointsTemplate()
+    {
+        return Excel::download(new ConjointsImportTemplate, 'modele_conjoints.xlsx');
+    }
+
+    /* ──── Import Excel Enfants ──── */
+
+    public function importEnfants(Request $request)
+    {
+        $request->validate(['excel_file' => 'required|file|mimes:xlsx,xls,csv']);
+        try {
+            Excel::import(new EnfantsImport, $request->file('excel_file'));
+            return redirect()->route('famille.enfants')->with('success', 'Enfants importés avec succès.');
+        } catch (\Throwable $e) {
+            return redirect()->route('famille.enfants')->with('error', 'Erreur importation : ' . $e->getMessage());
+        }
+    }
+
+    public function downloadEnfantsTemplate()
+    {
+        return Excel::download(new EnfantsImportTemplate, 'modele_enfants.xlsx');
     }
 }

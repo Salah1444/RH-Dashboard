@@ -10,6 +10,13 @@
   </a>
 </div>
 
+<!-- Import Excel -->
+<x-excel-import
+  :import-route="route('employes.import')"
+  :template-route="route('employes.template')"
+  label="employés"
+/>
+
 <!-- KPIs -->
 <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
   <div class="kpi-card primary">
@@ -68,7 +75,9 @@
   <div class="card-header">
     <span class="card-title">Liste des Employés</span>
     <div style="display:flex;gap:8px;">
-      <button class="btn-sm"><i class="fas fa-download"></i> Export</button>
+      <a href="{{ route('employes.export', request()->query()) }}" class="btn-sm" style="background:#1cc88a;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
+        <i class="fas fa-file-excel"></i> Export Excel
+      </a>
     </div>
   </div>
   <div class="card-body" style="padding:0;">
