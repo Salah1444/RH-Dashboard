@@ -94,7 +94,7 @@
                 <span style="color:var(--secondary);">-</span>
               @endif
             </td>
-            {{ dd($dip) }}
+            
             <td style="white-space:nowrap;">
               <a href="{{ route('diplomes.edit', $dip->CD_DIP) }}" class="btn-sm"><i class="fas fa-edit"></i></a>
               <form action="{{ route('diplomes.destroy', $dip) }}" method="POST" style="display:inline;" onsubmit="return confirm('Supprimer ce diplôme ?')">

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employer;
-use App\Models\Etablisement;
 use App\Models\Absence;
 use App\Models\Affectation;
 use App\Models\Grade;
 use App\Models\Diplome;
 use App\Models\Enfant;
 use App\Models\EmployeSituationStatutaireHistory;
+use App\Models\Etablissement;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -19,7 +19,7 @@ class DashboardController extends Controller
     {
         // ── KPI Cards ──────────────────────────────────────────────
         $totalEmployes       = Employer::count();
-        $totalEtablissements = Etablisement::count();
+        $totalEtablissements = Etablissement::count();
 
         $absencesMois = Absence::whereMonth('date_debut', now()->month)
                                 ->whereYear('date_debut',  now()->year)
@@ -60,7 +60,7 @@ class DashboardController extends Controller
         // ── Dernières affectations ─────────────────────────────────
         $dernieresAffectations = Affectation::with([
             'employer',
-            'etablisement',   // ← un seul 's' — nom exact de la méthode dans Affectation.php
+            'etablissement',   // ← un seul 's' — nom exact de la méthode dans Affectation.php
             'fonction',
         ])
             ->latest('DT_AFF_POSTE')
@@ -77,8 +77,8 @@ class DashboardController extends Controller
         $parRegion = DB::table('region')
             ->leftJoin('province',     'province.CD_REG',         '=', 'region.CD_REG')
             ->leftJoin('commune',      'commune.CD_PRV',          '=', 'province.CD_PRV')
-            ->leftJoin('etablisement', 'etablisement.cd_commune', '=', 'commune.CD_COM')
-            ->leftJoin('affectation',  'affectation.code_etab',   '=', 'etablisement.CD_ETAB')
+            ->leftJoin('etablissement', 'etablissement.cd_commune', '=', 'commune.CD_COM')
+            ->leftJoin('affectation',  'affectation.code_etab',   '=', 'etablissement.CD_ETAB')
             ->leftJoin('employer',     'employer.COD_AG',         '=', 'affectation.code_agent')
             ->select(
                 'region.CD_REG',

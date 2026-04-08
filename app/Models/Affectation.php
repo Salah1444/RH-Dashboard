@@ -17,6 +17,6 @@ class Affectation extends Model {
         'Date_aff_aref'        => 'date',
     ];
     public function employer()     { return $this->belongsTo(Employer::class,    'code_agent',  'COD_AG'); }
-    public function etablisement() { return $this->belongsTo(Etablisement::class, 'code_etab',  'CD_ETAB'); }
+    public function etablissement() { return $this->belongsTo(Etablissement::class, 'code_etab',  'CD_ETAB'); }
     public function fonction()     { return $this->belongsTo(Fonction::class,    'fonction_id', 'CODE_FONCTION'); }
 }

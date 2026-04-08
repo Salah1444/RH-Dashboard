@@ -117,9 +117,10 @@
                 <span style="color:var(--secondary);">-</span>
               @endif
             </td>
+            
             <td style="white-space:nowrap;">
-              <a href="{{ route('employes.show', $emp) }}" class="btn-sm" title="Voir"><i class="fas fa-eye"></i></a>
-              <a href="{{ route('employes.edit', $emp) }}" class="btn-sm" title="Modifier"><i class="fas fa-edit"></i></a>
+              <a href="{{ route('employes.show', $emp->COD_AG) }}" class="btn-sm" title="Voir"><i class="fas fa-eye"></i></a>
+              <a href="{{ route('employes.edit', $emp->COD_AG) }}" class="btn-sm" title="Modifier"><i class="fas fa-edit"></i></a>
               <form action="{{ route('employes.destroy', $emp) }}" method="POST" style="display:inline;" onsubmit="return confirm('Supprimer cet employé ?')">
                 @csrf @method('DELETE')
                 <button type="submit" class="btn-sm" title="Supprimer" style="color:var(--danger);"><i class="fas fa-trash"></i></button>

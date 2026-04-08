@@ -419,7 +419,7 @@
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Cadre</th><th>Date</th></tr></thead>
                     <tbody>
-                        @forelse($emp->cadreHistory as $item)
+                        @forelse($emp->cadreHistories ??[] as $item)
                             <tr>
                                 <td>{{ $item->id_cadre ?? 'N/A' }}</td>
                                 <td>{{ $item->cadre?->Lib_Cadre_FR ?? 'N/A' }}</td>
@@ -438,7 +438,7 @@
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Grade</th><th>Date</th></tr></thead>
                     <tbody>
-                        @forelse($emp->gradeHistory as $item)
+                        @forelse($emp->gradeHistories ?? [] as $item)
                             <tr>
                                 <td>{{ $item->id_grade ?? 'N/A' }}</td>
                                 <td>{{ $item->grade?->Lib_grade_FR ?? ($item->LIBELLE_GRADE ?? 'N/A') }}</td>
@@ -455,7 +455,7 @@
                 <table class="data-table">
                     <thead><tr><th>ID</th><th>Échelon</th><th>Date</th></tr></thead>
                     <tbody>
-                        @forelse($emp->echelonHistory as $item)
+                        @forelse($emp->echelonHistories ??[] as $item)
                             <tr>
                                 <td>{{ $item->id_ech ?? 'N/A' }}</td>
                                 <td>{{ $item->echelon?->COD_ECH ?? 'N/A' }}</td>

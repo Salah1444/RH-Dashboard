@@ -9,5 +9,7 @@ class Fonction extends Model {
         'LIB_FONCTION_FR', 'LIB_FONCTION_AR',
         'DT_AFF_Fonction', 'LL_CYCLE', 'LL_DISCIP',
     ];
+    protected $casts = ['DT_AFF_Fonction' => 'date'];
+
     public function affectations() { return $this->hasMany(Affectation::class, 'fonction_id', 'CODE_FONCTION'); }
 }

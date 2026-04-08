@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Affectation;
 use App\Models\Employer;
-use App\Models\Etablisement;
+use App\Models\Etablissement;
 use App\Models\Fonction;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class AffectationController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Affectation::with(['employer', 'etablisement', 'fonction']);
+        $query = Affectation::with(['employer', 'Etablissement', 'fonction']);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -29,7 +29,7 @@ class AffectationController extends Controller
         }
 
         $affectations   = $query->latest('DT_AFF_POSTE')->paginate(15)->withQueryString();
-        $etablissements = Etablisement::orderBy('NOM_ETAB')->get();
+        $etablissements = Etablissement::orderBy('NOM_ETAB')->get();
         $modes = Affectation::select('Mode_Affectation')->distinct()->whereNotNull('Mode_Affectation')->pluck('Mode_Affectation');
 
         // KPIs
@@ -47,7 +47,7 @@ class AffectationController extends Controller
     public function create()
     {
         $employes       = Employer::orderBy('NOM_PRENOM_FR')->get();
-        $etablissements = Etablisement::orderBy('NOM_ETAB')->get();
+        $etablissements = Etablissement::orderBy('NOM_ETAB')->get();
         $fonctions      = Fonction::orderBy('LIB_FONCTION_FR')->get();
         return view('affectations.create', compact('employes', 'etablissements', 'fonctions'));
     }
@@ -56,7 +56,7 @@ class AffectationController extends Controller
     {
         $validated = $request->validate([
             'code_agent'          => 'required|exists:employer,COD_AG',
-            'code_etab'           => 'nullable|exists:etablisement,CD_ETAB',
+            'code_etab'           => 'nullable|exists:Etablissement,CD_ETAB',
             'fonction_id'         => 'nullable|exists:fonction,CODE_FONCTION',
             'DT_AFF_POSTE'        => 'nullable|date',
             'DATE_DEBUT_AFF'      => 'nullable|date',
@@ -74,7 +74,7 @@ class AffectationController extends Controller
     public function edit(Affectation $affectation)
     {
         $employes       = Employer::orderBy('NOM_PRENOM_FR')->get();
-        $etablissements = Etablisement::orderBy('NOM_ETAB')->get();
+        $etablissements = Etablissement::orderBy('NOM_ETAB')->get();
         $fonctions      = Fonction::orderBy('LIB_FONCTION_FR')->get();
         return view('affectations.edit', compact('affectation', 'employes', 'etablissements', 'fonctions'));
     }
@@ -83,7 +83,7 @@ class AffectationController extends Controller
     {
         $validated = $request->validate([
             'code_agent'          => 'required|exists:employer,COD_AG',
-            'code_etab'           => 'nullable|exists:etablisement,CD_ETAB',
+            'code_etab'           => 'nullable|exists:Etablissement,CD_ETAB',
             'fonction_id'         => 'nullable|exists:fonction,CODE_FONCTION',
             'DT_AFF_POSTE'        => 'nullable|date',
             'DATE_DEBUT_AFF'      => 'nullable|date',

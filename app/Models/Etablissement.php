@@ -2,8 +2,8 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class Etablisement extends Model {
-    protected $table = 'etablisement';
+class Etablissement extends Model {
+    protected $table = 'etablissement';
     protected $primaryKey = 'CD_ETAB';
     protected $fillable = [
         'NOM_ETAB', 'type_milieu', 'Nombre_eleves',

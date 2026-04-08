@@ -18,6 +18,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::resource('employes',        EmployerController::class);
+    Route::get('employes/{id}/cv/export', [EmployerController::class, 'exportCV'])
+        ->whereNumber('id')
+        ->name('employes.cv.export');         
     Route::resource('affectations',    AffectationController::class)->except(['show']);
     Route::resource('absences',        AbsenceController::class)->except(['show']);
     Route::resource('congees',         CongeeController::class)->except(['show']);

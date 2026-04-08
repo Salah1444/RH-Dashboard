@@ -6,7 +6,7 @@
 <div class="page-header">
   <h1>{{ $etablisement->NOM_ETAB }}</h1>
   <div style="display:flex;gap:10px;">
-    <a href="{{ route('etablissements.edit', $etablisement) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a>
+    <a href="{{ route('etablissements.edit', [$etablisement,$etablisement->CD_ETAB]) }}" class="btn btn-primary"><i class="fas fa-edit"></i> Modifier</a>
     <a href="{{ route('etablissements.index') }}" class="btn" style="background:#e3e6f0;color:var(--dark);"><i class="fas fa-arrow-left"></i> Retour</a>
   </div>
 </div>

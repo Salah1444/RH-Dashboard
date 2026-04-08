@@ -84,8 +84,8 @@
               @endif
             </td>
             <td style="white-space:nowrap;">
-              <a href="{{ route('etablissements.show', $etab) }}" class="btn-sm"><i class="fas fa-eye"></i></a>
-              <a href="{{ route('etablissements.edit', $etab) }}" class="btn-sm"><i class="fas fa-edit"></i></a>
+              <a href="{{ route('etablissements.show', $etab->CD_ETAB) }}" class="btn-sm"><i class="fas fa-eye"></i></a>
+              <a href="{{ route('etablissements.edit', $etab->CD_ETAB) }}" class="btn-sm"><i class="fas fa-edit"></i></a>
               <form action="{{ route('etablissements.destroy', $etab) }}" method="POST" style="display:inline;" onsubmit="return confirm('Supprimer ?')">
                 @csrf @method('DELETE')
                 <button type="submit" class="btn-sm" style="color:var(--danger);"><i class="fas fa-trash"></i></button>
