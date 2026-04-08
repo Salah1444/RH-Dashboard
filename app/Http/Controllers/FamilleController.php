@@ -58,6 +58,7 @@ class FamilleController extends Controller
 
     public function enfants(Request $request)
     {
+
         $query = Enfant::with(['employer', 'garde']);
         if ($request->filled('search')) {
             $s = $request->search;
@@ -70,6 +71,7 @@ class FamilleController extends Controller
         $totalEnf  = Enfant::count();
         $employes  = Employer::orderBy('NOM_PRENOM_FR')->get();
         $gardes    = Garde::all();
+        dd($gardes);
         return view('famille.enfants', compact('enfants', 'totalEnf', 'employes', 'gardes'));
     }
 

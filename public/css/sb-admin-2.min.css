@@ -38,6 +38,7 @@ body {
     flex-direction: column;
     overflow-y: auto;
 }
+
 .sidebar-brand {
     display: flex;
     align-items: center;
@@ -73,6 +74,7 @@ body {
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
+
 .sidebar-heading {
     font-size: 10px;
     font-weight: 700;
@@ -502,6 +504,7 @@ table tbody td {
     background-size: 12px;
     padding-right: 32px;
 }
+
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

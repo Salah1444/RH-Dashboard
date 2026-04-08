@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\EmployersImport;
 use App\Exports\EmployersImportTemplate;
+use App\Exports\EmployersExport;
 class EmployerController extends Controller
 {
     public function index(Request $request)
@@ -161,8 +162,9 @@ class EmployerController extends Controller
             ->with('success', 'Employé mis à jour.');
     }
 
-    public function destroy(Employer $employer)
+    public function destroy(Employer $employer,$id)
     {
+        $employer = Employer::findOrFail($id);
         if ($employer->photo && $employer->photo !== 'default.png') {
             Storage::disk('public')->delete($employer->photo);
         }
@@ -182,6 +184,12 @@ class EmployerController extends Controller
         } catch (\Throwable $e) {
             return redirect()->route('employes.index')->with('error', 'Erreur lors de l\'importation : ' . $e->getMessage());
         }
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $fileName = 'employes_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new EmployersExport($request), $fileName);
     }
 
     public function downloadTemplate()

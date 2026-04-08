@@ -1,11 +1,7 @@
 
 @props(['importRoute', 'templateRoute', 'label' => 'données'])
 
-@if(session('success'))
-  <div style="background:#d4edda;border:1px solid #c3e6cb;color:#155724;padding:12px 16px;border-radius:6px;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
-    <i class="fas fa-check-circle"></i> {{ session('success') }}
-  </div>
-@endif
+
 @if(session('error'))
   <div style="background:#f8d7da;border:1px solid #f5c6cb;color:#721c24;padding:12px 16px;border-radius:6px;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
     <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
@@ -52,7 +48,7 @@
             <div class="form-group" style="margin:0;flex:1;min-width:200px;">
               <label class="form-label" style="font-size:12px;">Fichier Excel (.xlsx, .xls, .csv)</label>
               <input type="file" name="excel_file" class="form-control" accept=".xlsx,.xls,.csv" required
-                     style="font-size:12px;padding:6px 10px;">
+                     >
               @error('excel_file')
                 <div style="color:var(--danger);font-size:11px;margin-top:4px;">{{ $message }}</div>
               @enderror

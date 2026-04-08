@@ -98,8 +98,9 @@ class EtablisementController extends Controller
         return redirect()->route('etablissements.index')->with('success', 'Établissement mis à jour.');
     }
 
-    public function destroy(Etablissement $etablisement)
+    public function destroy(Etablissement $etablisement,$id)
     {
+        $etablisement = Etablissement::findOrFail($id);
         $etablisement->delete();
         return redirect()->route('etablissements.index')->with('success', 'Établissement supprimé.');
     }

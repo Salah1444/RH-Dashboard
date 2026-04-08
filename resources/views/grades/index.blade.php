@@ -8,11 +8,6 @@
 </div>
 
 
-@if(session('success'))
-  <div style="background:#d4edda;border:1px solid #c3e6cb;color:#155724;padding:12px 16px;border-radius:6px;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
-    <i class="fas fa-check-circle"></i> {{ session('success') }}
-  </div>
-@endif
 @if(session('error'))
   <div style="background:#f8d7da;border:1px solid #f5c6cb;color:#721c24;padding:12px 16px;border-radius:6px;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
     <i class="fas fa-exclamation-circle"></i> {{ session('error') }}

@@ -8,16 +8,13 @@
   <a href="{{ route('etablissements.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Nouvel Établissement</a>
 </div>
 
-<<<<<<< HEAD
-=======
+
 <!-- Import Excel -->
 <x-excel-import
   :import-route="route('etablissements.import')"
   :template-route="route('etablissements.template')"
   label="établissements"
 />
-
->>>>>>> d206994bd27f931d3cbeaa204d402602c9fa74e0
 <div class="kpi-grid">
   <div class="kpi-card primary">
     <div><div class="kpi-label">Total</div><div class="kpi-value">{{ $totalEtab }}</div></div>
@@ -96,7 +93,7 @@
             <td style="white-space:nowrap;">
               <a href="{{ route('etablissements.show', $etab->CD_ETAB) }}" class="btn-sm"><i class="fas fa-eye"></i></a>
               <a href="{{ route('etablissements.edit', $etab->CD_ETAB) }}" class="btn-sm"><i class="fas fa-edit"></i></a>
-              <form action="{{ route('etablissements.destroy', $etab) }}" method="POST" style="display:inline;" onsubmit="return confirm('Supprimer ?')">
+              <form action="{{ route('etablissements.destroy', $etab->CD_ETAB) }}" method="POST" style="display:inline;" onsubmit="return confirm('Supprimer ?')">
                 @csrf @method('DELETE')
                 <button type="submit" class="btn-sm" style="color:var(--danger);"><i class="fas fa-trash"></i></button>
               </form>
