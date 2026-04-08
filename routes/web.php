@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/',          [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+<<<<<<< HEAD
     // Employés
     Route::resource('employes',        EmployerController::class);
     Route::get('employes/{id}/cv/export',   [EmployerController::class, 'exportCV'])->whereNumber('id')->name('employes.cv.export');
@@ -27,10 +28,23 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('affectations',    AffectationController::class)->except(['show']);
     Route::post('affectations/import', [AffectationController::class, 'importExcel'])->name('affectations.import');
     Route::get('affectations/template',[AffectationController::class, 'downloadTemplate'])->name('affectations.template');
+=======
+    // Employés — custom routes BEFORE resource() to prevent {employe} swallowing them
+    Route::get('employes/template',         [EmployerController::class, 'downloadTemplate'])->name('employes.template');
+    Route::post('employes/import',          [EmployerController::class, 'importExcel'])->name('employes.import');
+    Route::resource('employes',             EmployerController::class);
+    Route::get('employes/{id}/cv/export',   [EmployerController::class, 'exportCV'])->whereNumber('id')->name('employes.cv.export');
+
+    // Affectations — custom routes BEFORE resource()
+    Route::get('affectations/template',  [AffectationController::class, 'downloadTemplate'])->name('affectations.template');
+    Route::post('affectations/import',   [AffectationController::class, 'importExcel'])->name('affectations.import');
+    Route::resource('affectations',      AffectationController::class)->except(['show']);
+>>>>>>> 65ab374 (import and export xlxs)
 
     Route::resource('absences',        AbsenceController::class)->except(['show']);
     Route::resource('congees',         CongeeController::class)->except(['show']);
 
+<<<<<<< HEAD
     // Établissements
     Route::resource('etablissements',  EtablisementController::class);
     Route::post('etablissements/import', [EtablisementController::class, 'importExcel'])->name('etablissements.import');
@@ -40,6 +54,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('diplomes',        DiplomeController::class)->except(['show']);
     Route::post('diplomes/import',     [DiplomeController::class, 'importExcel'])->name('diplomes.import');
     Route::get('diplomes/template',    [DiplomeController::class, 'downloadTemplate'])->name('diplomes.template');
+=======
+    // Établissements — custom routes BEFORE resource()
+    Route::get('etablissements/template',  [EtablisementController::class, 'downloadTemplate'])->name('etablissements.template');
+    Route::post('etablissements/import',   [EtablisementController::class, 'importExcel'])->name('etablissements.import');
+    Route::resource('etablissements',      EtablisementController::class);
+
+    // Diplômes — custom routes BEFORE resource()
+    Route::get('diplomes/template',    [DiplomeController::class, 'downloadTemplate'])->name('diplomes.template');
+    Route::post('diplomes/import',     [DiplomeController::class, 'importExcel'])->name('diplomes.import');
+    Route::resource('diplomes',        DiplomeController::class)->except(['show']);
+>>>>>>> 65ab374 (import and export xlxs)
 
     // Grades / Cadres / Échelons
     Route::get('/grades',                  [GradeController::class, 'index'])->name('grades.index');

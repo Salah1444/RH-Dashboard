@@ -12,8 +12,13 @@
 
 <!-- Import Excel -->
 <x-excel-import
+<<<<<<< HEAD
   :importRoute="route('employes.import')"
   :templateRoute="route('employes.template')"
+=======
+  :import-route="route('employes.import')"
+  :template-route="route('employes.template')"
+>>>>>>> 65ab374 (import and export xlxs)
   label="employés"
 />
 
