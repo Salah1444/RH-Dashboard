@@ -43,7 +43,7 @@
 
                                 <img src="{{ asset($photo) }}" class="profile-img" alt="Photo">
 
-                                {{-- <form action="{{ route('employers.photo.update', $Employer->COD_AG) }}" method="POST"
+                                <form action="{{ route('employes.photo.update', $employer->COD_AG) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
 
@@ -52,7 +52,7 @@
                                     </label>
 
                                     <input type="file" id="upload-photo" name="photo" hidden onchange="this.form.submit()">
-                                </form> --}}
+                                </form>
                             </div>
                         @else
                                 <div class="photo-placeholder"></div>

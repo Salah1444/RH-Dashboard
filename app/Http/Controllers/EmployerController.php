@@ -89,7 +89,22 @@ class EmployerController extends Controller
         return redirect()->route('employes.index')
             ->with('success', 'Employé créé avec succès.');
     }
+    public function updatePhoto(Request $request, $id)
+{
+    $request->validate([
+        'photo' => 'image|mimes:jpg,jpeg,png|max:2048'
+    ]);
+    dd($request,$id);
+    $employer = Employer::findOrFail($id);
 
+    if ($request->hasFile('photo')) {
+
+        $path = $request->file('photo')->store('cv','public');
+        $employer->photo = $path;
+        $employer->save();
+    }
+    return back();
+}
     public function show($id)
     {
 
@@ -265,4 +280,5 @@ class EmployerController extends Controller
 
         return $pdf->download($fileName);
     }
+
 }

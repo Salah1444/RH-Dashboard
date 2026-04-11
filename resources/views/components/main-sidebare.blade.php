@@ -62,6 +62,33 @@
         <i class="fas fa-baby"></i><span>Enfants</span>
       </a>
     </li>
+    <hr class="sidebar-divider">
+    <div class="sidebar-heading">Géographie</div>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('regions*') ? 'active' : '' }}" href="{{ route('regions.index') }}">
+        <i class="fas fa-globe-africa"></i><span>Régions</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('provinces*') ? 'active' : '' }}" href="{{ route('provinces.index') }}">
+        <i class="fas fa-map"></i><span>Provinces</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('communes*') ? 'active' : '' }}" href="{{ route('communes.index') }}">
+        <i class="fas fa-city"></i><span>Communes</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('modiriyas*') ? 'active' : '' }}" href="{{ route('modiriyas.index') }}">
+        <i class="fas fa-building"></i><span>Modiriyas</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('net_etabs*') ? 'active' : '' }}" href="{{ route('net_etabs.index') }}">
+        <i class="fas fa-network-wired"></i><span>Réseaux Étab.</span>
+      </a>
+    </li>
   </ul>
   <div class="sidebar-footer">
     <div class="avatar"><i class="fas fa-user"></i></div>

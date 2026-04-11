@@ -6,21 +6,44 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\AbsenceController;
+use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\CongeeController;
 use App\Http\Controllers\EtablisementController;
 use App\Http\Controllers\DiplomeController;
+use App\Http\Controllers\EmployeCadreHistoryController;
+use App\Http\Controllers\EmployeEchelonHistoryController;
+use App\Http\Controllers\EmployeGradesHistoryController;
+use App\Http\Controllers\EmployeSituationStatutaireHistoryController;
 use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\ModiriyaController;
+use App\Http\Controllers\NetEtabController;
+use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\RegionController;
 
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/',          [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    // ── Historiques RH ──────────────────────────────────────
+    Route::resource('employe_cadre_history',                EmployeCadreHistoryController::class);
+    Route::resource('employe_grades_history',               EmployeGradesHistoryController::class);
+    Route::resource('employe_echelon_history',              EmployeEchelonHistoryController::class);
+    Route::resource('employe_situation_statutaire_history', EmployeSituationStatutaireHistoryController::class);
+    // ── Géographie ──────────────────────────────────────────
+    Route::resource('regions',   RegionController::class);
+    Route::resource('provinces', ProvinceController::class);
+    Route::resource('communes',  CommuneController::class);
+
+    // ── Organisation ────────────────────────────────────────
+    Route::resource('modiriyas', ModiriyaController::class);
+    Route::resource('net_etabs', NetEtabController::class);
 
     // Employés — custom routes BEFORE resource() to prevent {employe} swallowing them
     Route::get('employes/template',         [EmployerController::class, 'downloadTemplate'])->name('employes.template');
     Route::post('employes/import',          [EmployerController::class, 'importExcel'])->name('employes.import');
+    Route::post('employes/update-photo',          [EmployerController::class, 'updatePhoto'])->name('employes.photo.update');
     Route::get('employes/export',           [EmployerController::class, 'exportExcel'])->name('employes.export');
     Route::resource('employes',             EmployerController::class);
     Route::get('employes/{id}/cv/export',   [EmployerController::class, 'exportCV'])->whereNumber('id')->name('employes.cv.export');
@@ -79,7 +102,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/famille/conjoints/template',      [FamilleController::class, 'downloadConjointsTemplate'])->name('famille.conjoints.template');
     Route::post('/famille/enfants/import',         [FamilleController::class, 'importEnfants'])->name('famille.enfants.import');
     Route::get('/famille/enfants/template',        [FamilleController::class, 'downloadEnfantsTemplate'])->name('famille.enfants.template');
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

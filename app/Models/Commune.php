@@ -8,4 +8,5 @@ class Commune extends Model {
     protected $fillable = ['LIB_COMMUNE_FR', 'LIB_COMMUNE_AR', 'LIB_MILIEU_FR', 'LIB_MILIEU_AR', 'CD_PRV'];
     public function province()  { return $this->belongsTo(Province::class, 'CD_PRV', 'CD_PRV'); }
     public function employers() { return $this->hasMany(Employer::class, 'ville_id', 'CD_COM'); }
+    public function etablissements() { return $this->hasMany(Etablissement::class, 'CD_ETAB', 'CD_COM'); }
 }

@@ -21,9 +21,9 @@ class RhSeeder extends Seeder
             ['id_fon' => 3, 'CODE_FONCTION' => 'F03', 'LIB_FONCTION_FR' => 'Surveillant Général', 'LIB_FONCTION_AR' => 'حارس عام', 'LL_CYCLE' => 'Collège', 'LL_DISCIP' => 'Gestion'],
         ]);
 
-        DB::table('etablisement')->insert([
-            ['id_etablisement' => 2, 'CD_ETAB' => 'ET02', 'LIBELLE_FR_AFF' => 'Lycée Ibn Khaldoun', 'commune_id' => 1, 'modiriya_id' => 1, 'net_etab_id' => 1],
-            ['id_etablisement' => 3, 'CD_ETAB' => 'ET03', 'LIBELLE_FR_AFF' => 'Collège Al Massira', 'commune_id' => 1, 'modiriya_id' => 1, 'net_etab_id' => 1],
+        DB::table('etablissement')->insert([
+            ['id_etablissement' => 2, 'CD_ETAB' => 'ET02', 'LIBELLE_FR_AFF' => 'Lycée Ibn Khaldoun', 'commune_id' => 1, 'modiriya_id' => 1, 'net_etab_id' => 1],
+            ['id_etablissement' => 3, 'CD_ETAB' => 'ET03', 'LIBELLE_FR_AFF' => 'Collège Al Massira', 'commune_id' => 1, 'modiriya_id' => 1, 'net_etab_id' => 1],
         ]);
 
         // 2. ADDING DUMMY EMPLOYERS (Singular table name 'employer' as per your SQL dump)

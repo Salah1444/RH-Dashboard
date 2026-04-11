@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Etablisement;
 use App\Models\Commune;
 use App\Models\Etablissement;
 use App\Models\Modiriya;

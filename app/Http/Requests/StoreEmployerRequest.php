@@ -26,7 +26,7 @@ class StoreEmployerRequest extends FormRequest
         return [
             'CIN_A' => ['nullable', 'string', 'max:20'],
             'CIN_N' => ['nullable', 'string', 'max:20'],
-            'CIN' => ['nullable', 'string', 'max:20', 'unique:employer,CIN'],
+            'CIN' => ['required', 'string', 'max:20', 'unique:employer,CIN'],
             'NOM_PRENOM_FR' => ['nullable', 'string', 'max:200'],
             'NOM_PRENOM_AR' => ['nullable', 'string', 'max:200'],
             'photo' => ['nullable', 'image', 'max:4096'],

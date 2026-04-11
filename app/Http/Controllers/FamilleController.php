@@ -71,7 +71,7 @@ class FamilleController extends Controller
         $totalEnf  = Enfant::count();
         $employes  = Employer::orderBy('NOM_PRENOM_FR')->get();
         $gardes    = Garde::all();
-        dd($gardes);
+        
         return view('famille.enfants', compact('enfants', 'totalEnf', 'employes', 'gardes'));
     }
 
