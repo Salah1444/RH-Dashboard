@@ -26,6 +26,11 @@
         <i class="fas fa-award"></i><span>Grades & Cadres</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->routeIs('situations*') ? 'active' : '' }}" href="{{ route('situations.index') }}">
+        <i class="fas fa-balance-scale"></i><span>Situations statutaires</span>
+      </a>
+    </li>
     <hr class="sidebar-divider">
     <div class="sidebar-heading">Absences & Congés</div>
     <li class="nav-item">

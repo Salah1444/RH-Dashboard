@@ -1,5 +1,6 @@
 
 @props(['importRoute', 'templateRoute', 'label' => 'données'])
+@php $excelInputId = 'excel_file_' . Str::random(6); @endphp
 
 
 @if(session('error'))
@@ -46,9 +47,12 @@
                 style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
             @csrf
             <div class="form-group" style="margin:0;flex:1;min-width:200px;">
-              <label class="form-label" style="font-size:12px;">Fichier Excel (.xlsx, .xls, .csv)</label>
-              <input type="file" name="excel_file" class="form-control" accept=".xlsx,.xls,.csv" required
-                     >
+              <label class="form-label" for="{{ $excelInputId }}" style="font-size:12px;">Fichier Excel (.xlsx, .xls, .csv)</label>
+              <div class="custom-file">
+                <input type="file" name="excel_file" class="custom-file-input" id="{{ $excelInputId }}"
+                       accept=".xlsx,.xls,.csv" required>
+                <label class="custom-file-label" for="{{ $excelInputId }}">Choisir un fichier...</label>
+              </div>
               @error('excel_file')
                 <div style="color:var(--danger);font-size:11px;margin-top:4px;">{{ $message }}</div>
               @enderror
@@ -85,5 +89,14 @@ document.addEventListener('DOMContentLoaded', function() {
   @if(session('success') || session('error') || $errors->has('excel_file'))
     document.querySelectorAll('.excel-panel').forEach(p => p.style.display = 'block');
   @endif
+});
+
+document.addEventListener('change', function (event) {
+  if (!event.target.classList.contains('custom-file-input')) return;
+  const label = event.target.nextElementSibling;
+  if (!label) return;
+  label.textContent = event.target.files.length
+    ? event.target.files[0].name
+    : 'Choisir un fichier...';
 });
 </script>
